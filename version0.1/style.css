@@ -1,0 +1,58 @@
+body{
+    background-color: rgb(68, 68, 68);
+    box-shadow: 10px 10px 8px #000000;
+}
+.input-group{
+    display: flex;
+    justify-content: end;
+}
+.btn-outline-primary{
+    color: black;
+}
+.nav-link{
+    display: flex;
+    border: rgb(152, 152, 152) solid;
+    background-color: black;
+    color: white;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    text-align: center;
+    text-decoration: none;
+    justify-content: center;
+    padding: 10px;
+}
+.nav-link:hover{
+    display: block;
+    color: rgb(141, 141, 141);
+}
+.nav-item{
+    list-style-type: none;
+    margin-right: 15px;
+}
+.navBar{
+    display: flex;
+    border: solid 2px;
+    background-color: rgb(0, 0, 0);
+    box-shadow: 10px 10px 8px #a4a4a4;
+
+    justify-content: baseline;
+    width: 175px;
+    height: 100%;
+}
+
+img{
+    display: flex;
+    border: rgb(0, 0, 0) 5px solid;
+    width:650px;
+    height: auto;
+    margin-left: 40px;
+    align-items: center;
+    justify-content: center;
+}
+.image-box {
+    padding: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center; 
+}
+
