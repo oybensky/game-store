@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Library Page</title>
+  <!-- CSS link will be here -->
+</head>
+
+
+<body id="top">
+  <!-- header -->
+  <header>
+    <div id="top-bar">
+      <!-- Search Form -->
+      <form id="searchForm" action="#" method="get">
+        <input type="text" id="searchInput" placeholder="Search game..." />
+        <button type="submit">Search</button>
+      </form>
+      
+      <!-- This section is for Cart & Wishlist at the (top-right) -->
+      <div id="top-links">
+
+        <a href="cart.html" id="topCartLink">Cart</a>
+        <a href="wishlist.html" id="topWishlistLink">Wishlist</a>
+     
+    </div>
+
+
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav id="sideNav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tournaments.html">Tournaments</a></li>
+      <li><a href="award-winning.html">Award-Winning</a></li>
+      <li><a href="random-game.html">Random Game</a></li>
+      <li><a href="library.html" class="active">Library</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="wishlist.html">Wishlist</a></li>
+      <li><a href="contact-us.html">Contact Us</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="create-account.html">Create Account</a></li>
+      <li><a href="#" id="logoutLink">Logout</a></li>
+      <li><a href="#" id="random-GameButtons">Random Game</a></li>
+    </ul>
+  </nav>
+
+
+  <main>
+    <!-- random Game Button might or might not add it here -->
+    <section id="randomSection">
+      <button id="btnGenerateRandom">Generate Random Game</button>
+    </section>
+
+    <!-- Trending Section So far as per the design I added just 4 card option might add more or less depending on the design later-->
+    <section id="trendingSection">
+
+      <h2>Trending</h2>
+
+      <div class="game-card" id="trendingGame1">
+
+        <div class="game-image-placeholder">Image Placeholder</div>
+        <h3 class="game-name">Game Name</h3>
+        <p class="game-studio">Studio: Studio Name</p>
+        <p class="game-rating">Rating: 0.0</p>
+        <p class="game-price">Price: $0.00</p>
+        <button class="btnAddToCart">Add to Cart</button>
+        <button class="btnAddToWishlist">Add to Wishlist</button>
+      </div>
+
+      <div class="game-card" id="trendingGame2">
+        <div class="game-image-placeholder">Image Placeholder</div>
+        <h3 class="game-name">Game Name</h3>
+        <p class="game-studio">Studio: Studio Name</p>
+        <p class="game-rating">Rating: 0.0</p>
+        <p class="game-price">Price: $0.00</p>
+        <button class="btnAddToCart">Add to Cart</button>
+        <button class="btnAddToWishlist">Add to Wishlist</button>
+      </div>
+
+      <div class="game-card" id="trendingGame3">
+        <div class="game-image-placeholder">Image Placeholder</div>
+        <h3 class="game-name">Game Name</h3>
+        <p class="game-studio">Studio: Studio Name</p>
+        <p class="game-rating">Rating: 0.0</p>
+        <p class="game-price">Price: $0.00</p>
+        <button class="btnAddToCart">Add to Cart</button>
+        <button class="btnAddToWishlist">Add to Wishlist</button>
+      </div>
+
+      <div class="game-card" id="trendingGame4">
+        <div class="game-image-placeholder">Image Placeholder</div>
+        <h3 class="game-name">Game Name</h3>
+        <p class="game-studio">Studio: Studio Name</p>
+        <p class="game-rating">Rating: 0.0</p>
+        <p class="game-price">Price: $0.00</p>
+        <button class="btnAddToCart">Add to Cart</button>
+        <button class="btnAddToWishlist">Add to Wishlist</button>
+      </div>
+    </section>
+
+    <!-- Recommended Section -->
+    <section id="recommendedSection">
+      <h2>Recommend</h2>
+      <div class="game-card" id="recommendedGame1">
+        <div class="game-image-placeholder">Image Placeholder</div>
+        <h3 class="game-name">Game Name</h3>
+        <p class="game-studio">Studio: Studio Name</p>
+        <p class="game-rating">Rating: 0.0</p>
+        <p class="game-price">Price: $0.00</p>
+        <button class="btnAddToCart">Add to Cart</button>
+        <button class="btnAddToWishlist">Add to Wishlist</button>
+      </div>
+
+      <div class="game-card" id="recommendedGame2">
+        <div class="game-image-placeholder">Image Placeholder</div>
+        <h3 class="game-name">Game Name</h3>
+        <p class="game-studio">Studio: Studio Name</p>
+        <p class="game-rating">Rating: 0.0</p>
+        <p class="game-price">Price: $0.00</p>
+        <button class="btnAddToCart">Add to Cart</button>
+        <button class="btnAddToWishlist">Add to Wishlist</button>
+      </div>
+
+      <div class="game-card" id="recommendedGame3">
+        <div class="game-image-placeholder">Image Placeholder</div>
+        <h3 class="game-name">Game Name</h3>
+        <p class="game-studio">Studio: Studio Name</p>
+        <p class="game-rating">Rating: 0.0</p>
+        <p class="game-price">Price: $0.00</p>
+        <button class="btnAddToCart">Add to Cart</button>
+        <button class="btnAddToWishlist">Add to Wishlist</button>
+      </div>
+
+      <div class="game-card" id="recommendedGame4">
+        <div class="game-image-placeholder">Image Placeholder</div>
+        <h3 class="game-name">Game Name</h3>
+        <p class="game-studio">Studio: Studio Name</p>
+        <p class="game-rating">Rating: 0.0</p>
+        <p class="game-price">Price: $0.00</p>
+        <button class="btnAddToCart">Add to Cart</button>
+        <button class="btnAddToWishlist">Add to Wishlist</button>
+      </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <section id="backToTopSection">
+      <a href="#top" id="btnBackToTop">Back to Top</a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Game Store - All rights reserved.</p>
+  </footer>
+</body>
+</html>
