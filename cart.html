@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cart / Checkout</title>
+<!-- css link -->
+</head>
+<body id="top">
+ 
+  <header>
+    <div id="top-bar">
+
+      
+      <form id="searchForm" action="#" method="get">
+        <input type="text" id="searchInput" placeholder="Search game..." />
+        <button type="submit">Search</button>
+      </form>
+      
+      <!--  Links for Cart & Wishlist (top-right) -->
+      <div id="top-links">
+        <a href="cart.html" id="topCartLink">Cart</a>
+        <a href="wishlist.html" id="topWishlistLink">Wishlist</a>
+      </div>
+    </div>
+  </header>
+
+  <!--  NAVIGATION -->
+  <nav id="sideNav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tournaments.html">Tournaments</a></li>
+      <li><a href="award-winning.html">Award-Winning</a></li>
+      <li><a href="random-game.html">Random Game</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="cart.html" class="active">Cart</a></li>
+      <li><a href="wishlist.html">Wishlist</a></li>
+      <li><a href="contact-us.html">Contact Us</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="create-account.html">Create Account</a></li>
+      <li><a href="#" id="logoutLink">Logout</a></li>
+    </ul>
+  </nav>
+
+ 
+  <main>
+    <!-- container for checkout steps and order summary -->
+    <div id="checkoutContainer">
+      <!-- Left side: Shipping, Payment, and Review #of Items -->
+
+      <div id="checkoutLeft">
+        <!-- Shipping Address info -->
+        <section id="shippingAddressSection">
+          <h2>1. Shipping Address</h2>
+          <form id="shippingAddressForm"  method="post">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter you name" />
+
+            <label for="addressLine">Address:</label>
+            <input type="text" id="address" name="address" placeholder="1234 Main St" />
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" placeholder="Montreal" />
+
+            <label for="province">Province:</label>
+            <input type="text" id="province" name="province" placeholder="QC" />
+
+            <label for="postalCode">Postal Code:</label>
+            <input type="text" id="postalCode" name="postalCode" placeholder="H3Z 2Y7" />
+
+            <label>
+              <input type="checkbox" id="saveAddress" name="saveAddress" />
+              Use this shipping address and payment method for future purchases
+            </label>
+          </form>
+        </section>
+
+        <!-- 2: Payment Method -->
+        <section id="paymentMethodSection">
+          <h2>2. Payment Method</h2>
+          <form id="paymentMethodForm" action="#" method="post">
+            <label for="cardName">Name on Card:</label>
+            <input type="text" id="cardName" name="cardName" placeholder="Name" />
+
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" />
+
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" />
+
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" placeholder="123" />
+
+            <button type="button" id="addCardBtn">Add Card</button>
+          </form>
+        </section>
+
+        <!-- 3: Review Items and Shipping -->
+        <section id="reviewItemsSection">
+          <h2>3. Review Items and Shipping Info</h2>
+
+          <div id="cartItemsContainer">
+
+            <!-- Example of an cart item -->
+            <div class="cartItem">
+              <div class="cartItemImage">Game Image Placeholder</div>
+              <div class="cartItemDetails">
+                <p class="cartItemName">Game Name Placeholder</p>
+                <p class="cartItemPrice">Price: $0.00</p>
+                <label for="quantity1">Quantity:</label>
+                <select id="quantity1" class="quantitySelect">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+                <button class="removeItemBtn">Remove</button>
+              </div>
+            </div>
+            
+          </div>
+          
+        </section>
+      </div>
+
+      <!-- Right side: order Summary -->
+      <aside id="orderSummary">
+        <h2>Order Summary</h2>
+        <p id="subtotal">Subtotal (# items): $0.00</p>
+        <p id="tax">Estimated Tax: $0.00</p>
+        <p id="shippingFee">Shipping Fee: $0.00</p>
+        <hr />
+        <p id="orderTotal"><strong>Order Total: $0.00</strong></p>
+        <button id="checkoutBtn">Proceed to Checkout</button>
+      </aside>
+    </div>
+
+    <section id="backToTopSection">
+        <a href="#top" id="btnBackToTop">Back to Top</a>
+      </section>
+  </main>
+
+ 
+  <footer>
+    <p>&copy; 2025 My Game Store - All rights reserved.</p>
+  </footer>
+</body>
+</html>

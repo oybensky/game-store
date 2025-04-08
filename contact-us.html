@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us</title>
+  <!-- Optional styling or link to external stylesheet -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #contactFormContainer {
+      width: 50%;
+      margin: 50px auto;
+      background-color: #333;
+      padding: 20px;
+      border-radius: 5px;
+      color: #fff;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 3px;
+    }
+    form textarea {
+      height: 200px;
+      resize: vertical;
+    }
+    form button {
+      display: block;
+      margin: 0 auto;
+      padding: 10px 20px;
+      background-color: white;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div id="top-bar">
+      <form id="searchForm">
+        <input type="text" placeholder="Search" />
+        <button type="submit">Search</button>
+      </form>
+      <div id="top-links">
+        <a href="cart.html">Cart</a> |
+        <a href="wishlist.html">Wishlist</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION SIDEBAR -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tournaments.html">Tournaments</a></li>
+      <li><a href="award-winning.html">Award-Winning</a></li>
+      <li><a href="random-game.html">Random Game</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="wishlist.html">Wishlist</a></li>
+      <li><a href="contact-us.html" class="active">Contact Us</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="create-account.html">Create Account</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN FORM SECTION -->
+  <main>
+    <section id="contactFormContainer">
+      <form id="contactForm" action="#" method="post">
+        <input type="text" id="name" name="name" placeholder="Name:">
+        <input type="email" id="email" name="email" placeholder="Email:">
+        <input type="text" id="subject" name="subject" placeholder="Subject:">
+        <textarea id="message" name="message" placeholder="Description:"></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p style="text-align: center;">&copy; 2025 Jenos Launcher - All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

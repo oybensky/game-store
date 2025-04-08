@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wishlist</title>
+ 
+  <style>
+    /* Example of one card to see how it would look like - later will be used in css*/
+    .wishlistItem {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      padding: 8px;
+      margin-bottom: 8px;
+    }
+    .wishlistItem img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 12px;
+    }
+    .wishlistDetails {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .wishlistGameName {
+      margin: 0 12px 0 0;
+      font-size: 1rem;
+    }
+    .wishlistGamePrice {
+      margin: 0 12px;
+    }
+    .wishlistActions button {
+      margin-left: 8px;
+    }
+  </style>
+
+</head>
+<body>
+  
+  <header>
+    <div id="top-bar">
+      
+      <form id="searchForm" action="#" method="get">
+        <input type="text" id="searchInput" placeholder="Search game..." />
+        <button type="submit">Search</button>
+      </form>
+      
+      <!-- Cart & Wishlist Links -->
+      <div id="top-links">
+        <a href="cart.html" id="topCartLink">Cart</a>
+        <a href="wishlist.html" id="topWishlistLink" class="active">Wishlist</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav id="sideNav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tournaments.html">Tournaments</a></li>
+      <li><a href="award-winning.html">Award-Winning</a></li>
+      <li><a href="random-game.html">Random Game</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="wishlist.html" class="active">Wishlist</a></li>
+      <li><a href="contact-us.html">Contact Us</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="create-account.html">Create Account</a></li>
+      <li><a href="#" id="logoutLink">Logout</a></li>
+    </ul>
+  </nav>
+
+ 
+  <main>
+    <section id="wishlistSection">
+      <h1>My Wishlist</h1>
+      <!-- one-line card for a wishlist item -->
+
+      <div class="wishlistItem">
+        <!-- Game Image -->
+
+        <div class="wishlistImage">
+          <img src="placeholder.jpg" alt="Game Image" />
+        </div>
+
+        <!-- Game Details: Name and Price -->
+
+        <div class="wishlistDetails">
+          <h3 class="wishlistGameName">Game Name Placeholder</h3>
+          <p class="wishlistGamePrice">$0.00</p>
+        </div>
+
+        <!-- Buttons: Remove and Add to Cart -->
+
+        <div class="wishlistActions">
+          <button class="btnRemoveFromWishlist">Remove</button>
+          <button class="btnAddToCart">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="wishlistItem">
+        <div class="wishlistImage">
+          <img src="placeholder.jpg" alt="Game Image" />
+        </div>
+        <div class="wishlistDetails">
+          <h3 class="wishlistGameName">Another Game Placeholder</h3>
+          <p class="wishlistGamePrice">$0.00</p>
+        </div>
+        <div class="wishlistActions">
+          <button class="btnRemoveFromWishlist">Remove</button>
+          <button class="btnAddToCart">Add to Cart</button>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  
+  <footer>
+    <p>&copy; 2025  Game Store - All rights reserved.</p>
+  </footer>
+</body>
+</html>

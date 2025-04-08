@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <title>Game Details</title>
-  <!-- Link your CSS file here if needed -->
-  <!-- <link rel="stylesheet" href="styles.css" /> -->
+<!-- CSS woule be linked here -->
 </head>
-<body>
-  <!-- HEADER / TOP BAR -->
+<body id="top">
+  <!--  BAR -->
   <header>
     <div id="top-bar">
       <!-- Search Form -->
@@ -16,7 +15,7 @@
         <button type="submit">Search</button>
       </form>
       
-      <!-- Icons or Text Links for Cart & Wishlist (top-right) -->
+     
       <div id="top-links">
         <a href="cart.html" id="topCartLink">Cart</a>
         <a href="wishlist.html" id="topWishlistLink">Wishlist</a>
@@ -24,7 +23,7 @@
     </div>
   </header>
 
-  <!-- SIDEBAR NAVIGATION -->
+  <!-- NAVIGATION -->
   <nav id="sideNav">
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -41,53 +40,62 @@
     </ul>
   </nav>
 
-  <!-- MAIN CONTENT -->
+ 
   <main>
     <!-- Title of the Game -->
     <section id="gameTitleSection">
       <h1 id="gameTitle">Game Title Placeholder</h1>
     </section>
 
-    <!-- Game Media (Pictures / Videos) -->
+    <!-- Game Media (pictures and videos) of the game like a sliding images and videos of the game -->
     <section id="gameMediaSection">
       <div id="gameMedia">
         <p>Placeholder for Game Picture or Video</p>
       </div>
     </section>
 
-    <!-- Game Description -->
+
+    <!-- Game Description Section where it will have information about the game -->
     <section id="gameDescriptionSection">
       <h2>Description</h2>
-      <p id="gameDescription">Placeholder text for the game description. Lorem ipsum dolor sit amet...</p>
+      <p id="gameDescription">Placeholder text for the game description. Infomration about the game</p>
     </section>
 
-    <!-- Side Panel: Buy / Add to Cart / Add to Wishlist + Details -->
+    <!-- Side Panel: Buy / Add to Cart / Add to Wishlist + Details, it will be a floating side panel -->
     <aside id="purchasePanel">
-      <button id="btnBuyNow">Buy Now</button>
-      <button id="btnAddToCart">Add to Cart</button>
-      <button id="btnAddToWishlist">Add to Wishlist</button>
+
+        <div id="purchaseButtons">
+            <button id="btnBuyNow">Buy Now</button>
+            <button id="btnAddToCart">Add to Cart</button>
+             <button id="btnAddToWishlist">Add to Wishlist</button>
+        </div>
 
       <div id="gameDetails">
-        <p>Developer: <span id="developerPlaceholder">Placeholder Developer</span></p>
-        <p>Publisher: <span id="publisherPlaceholder">Placeholder Publisher</span></p>
-        <p>Release Date: <span id="releaseDatePlaceholder">Placeholder Date</span></p>
-        <p>Platform: <span id="platformPlaceholder">Placeholder Platform</span></p>
+        <p>Developer: <span id="developerPlaceholder">Placeholder Developer Info</span></p>
+        <p>Publisher: <span id="publisherPlaceholder">Placeholder Publisher Info</span></p>
+        <p>Release Date: <span id="releaseDatePlaceholder">Placeholder Date Relase Date Info</span></p>
+        <p>Platform: <span id="platformPlaceholder">Placeholder Platform Info</span></p>
         <p>Price: <span id="pricePlaceholder">$0.00</span></p>
       </div>
     </aside>
 
-    <!-- Reviews -->
+    <!-- Reviews Section -->
     <section id="reviewsSection">
       <h2>Reviews</h2>
       <div id="reviewsPlaceholder">
         <p>Placeholder for User Reviews</p>
       </div>
     </section>
+
+    <section id="backToTopSection">
+        <a href="#top" id="btnBackToTop">Back to Top</a>
+      </section>
+    
   </main>
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 My Game Store - All rights reserved.</p>
+    <p>&copy; 2025 My Game Store - All rights reserved.</p>
   </footer>
 </body>
 </html>
