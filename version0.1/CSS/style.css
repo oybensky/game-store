@@ -41,7 +41,7 @@ body{
 }
 
 /* General image style - MODIFIED to not apply to game card images */
-img:not(.game-card img){
+/*img:not(.game-card img){
     display: flex;
     border: rgb(0, 0, 0) 5px solid;
     width: 650px;
@@ -50,12 +50,15 @@ img:not(.game-card img){
     align-items: center;
     justify-content: center;
 }
-.image-box {
+    */
+    .image {
     padding: 20px;
     display: flex;
     justify-content: start;
-    align-items: center; 
-}
+    align-items: center;
+    max-width: 100%;
+    height: auto;
+    }
 
 /* For game card structure */
 .game-container {
