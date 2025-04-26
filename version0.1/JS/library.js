@@ -1,88 +1,138 @@
-// library.js
-const apiKey = "8dcc7e4ee8dc43d3aadc429278b91b94";
-let trendingPage = 1;
-let recommendedPage = 1;
-let isFetchingTrending = false;
-let isFetchingRecommended = false;
+// js/library.js
+const catalogContainer = document.getElementById('catalogContainer');
+const apiContainer     = document.getElementById('apiDealsContainer');
+let pageNumber         = 0;
+let isFetching         = false;
 
-const trendingContainer = document.getElementById("trendingGamesContainer");
-const recommendedContainer = document.getElementById("recommendedGamesContainer");
+//loading  JSON catalog
+async function loadCatalog() {
+  try {
+    const res = await fetch('./data/product-catalog.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const { categories, products } = await res.json();
 
+    categories.forEach(cat => {
+      const section = document.createElement('section');
+      section.className = 'mb-5';
+      section.innerHTML = `<h2>${cat.categoryName}</h2>`;
 
-function createGameCard(game) {
-    const card = document.createElement("div");
-    card.className = "game-card";
+      const grid = document.createElement('div');
+      grid.className = 'game-container';
 
+      products
+        .filter(p => p.categoryId === cat.categoryId)
+        .forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'game-card';
+          card.innerHTML = `
+            <div class="game-image">
+              <img src="${p.thumbnailImage}" alt="${p.itemTitle}" />
+            </div>
+            <h3>${p.itemTitle}</h3>
+            <p>Studio: ${p.brand}</p>
+            <p>Rating: ${p.rating ?? 'N/A'}</p>
+            <p>Price: $${p.unitPrice.toFixed(2)}</p>
+            <button class="btn btn-success add-to-cart"     data-id="${p.itemId}">Add to Cart</button>
+            <button class="btn btn-outline-primary add-to-wishlist" data-id="${p.itemId}">Wishlist</button>
+          `;
+          card.onclick = () => {
+            sessionStorage.setItem('selectedProduct', p.itemId);
+            window.location.href = 'game-details.html';
+          };
+          grid.appendChild(card);
+        });
+
+      section.appendChild(grid);
+      catalogContainer.appendChild(section);
+    });
+  } catch (err) {
+    console.error('Error loading catalog:', err);
+    const errMsg = document.createElement('p');
+    errMsg.textContent = `⚠️ Couldn’t load catalog: ${err.message}`;
+    catalogContainer.appendChild(errMsg);
+  }
+}
+
+// 2) Infinite‐scroll live deals 
+async function loadDeals() {
+    if (isFetching) return;
+    isFetching = true;
   
-    const imageUrl = game.background_image || "https://via.placeholder.com/300x200.png?text=No+Image";
-
-    card.innerHTML = `
-        <div class="game-image">
-            <img src="${imageUrl}" alt="${game.name}" />
-        </div>
-        <h3>${game.name}</h3>
-        <p>Studio: Placeholder Studio</p>
-        <p>Rating: ${game.rating}</p>
-        <p>Price: $${(Math.random() * 60 + 10).toFixed(2)}</p>
-        <button class="btn btn-success">Add to Cart</button>
-        <button class="btn btn-outline-primary">Add to Wishlist</button>
-    `;
-
-    return card;
-}
-
-
-async function loadTrendingGames() {
-    if (isFetchingTrending) return;
-    isFetchingTrending = true;
-
     try {
-        const response = await fetch(`https://api.rawg.io/api/games?key=${apiKey}&page=${trendingPage}`);
-        const data = await response.json();
-
-        data.results.forEach(game => {
-            trendingContainer.appendChild(createGameCard(game));
-        });
-
-        trendingPage++;
-    } catch (error) {
-        console.error("Error loading trending games:", error);
+      const res   = await fetch(
+        `https://www.cheapshark.com/api/1.0/deals?pageNumber=${pageNumber}&pageSize=20`
+      );
+      if (!res.ok) throw new Error(res.statusText);
+      const deals = await res.json();
+  
+      deals.forEach(d => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+  
+        // Use internalName and normalPrice from the API
+        card.innerHTML = `
+          <div class="game-image">
+            <img src="${d.thumb}" alt="${d.internalName}" />
+          </div>
+          <h3>${d.title}</h3>
+          <p>Price: $${parseFloat(d.normalPrice).toFixed(2)}</p>
+          <p>Sale: $${parseFloat(d.salePrice).toFixed(2)}</p>
+         
+          <button class="btn btn-success add-to-cart"     data-deal="${d.dealID}">
+            Add to Cart
+          </button>
+          <button class="btn btn-outline-primary add-to-wishlist" data-deal="${d.dealID}">
+            Wishlist
+          </button>
+        `;
+  
+        // click  details page
+        card.onclick = () => {
+          sessionStorage.setItem('selectedDeal', d.dealID);
+          window.location.href = 'game-details.html';
+        };
+  
+        apiContainer.appendChild(card);
+      });
+  
+      pageNumber++;
+    } catch (err) {
+      console.error('Error loading deals:', err);
     } finally {
-        isFetchingTrending = false;
+      isFetching = false;
     }
+  }
+
+// 3) Hook up scroll & buttons
+function initInfiniteScroll(){
+  window.addEventListener('scroll', () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 100) loadDeals();
+  });
+}
+function initButtons(){
+  document.body.addEventListener('click', e => {
+    let key, id;
+    if (e.target.matches('.add-to-cart')) {
+      key = 'cart';    id = e.target.dataset.deal || e.target.dataset.id;
+    }
+    if (e.target.matches('.add-to-wishlist')) {
+      key = 'wishlist'; id = e.target.dataset.deal || e.target.dataset.id;
+    }
+    if (!key) return;
+    const arr = JSON.parse(localStorage.getItem(key) || '[]');
+    if (!arr.includes(id)) {
+      arr.push(id);
+      localStorage.setItem(key, JSON.stringify(arr));
+      alert(`Added to ${key}`);
+    }
+  });
 }
 
-// Fetch recommended games
-async function loadRecommendedGames() {
-    if (isFetchingRecommended) return;
-    isFetchingRecommended = true;
-
-    try {
-        const response = await fetch(`https://api.rawg.io/api/games?key=${apiKey}&page=${recommendedPage + 5}`);
-        const data = await response.json();
-
-        data.results.forEach(game => {
-            recommendedContainer.appendChild(createGameCard(game));
-        });
-
-        recommendedPage++;
-    } catch (error) {
-        console.error("Error loading recommended games:", error);
-    } finally {
-        isFetchingRecommended = false;
-    }
-}
-
-// Detect when scrolling hits bottom
-window.addEventListener("scroll", () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-    if (scrollTop + clientHeight >= scrollHeight - 10) {
-        loadTrendingGames();
-        loadRecommendedGames();
-    }
+// 4) Bootstrap
+document.addEventListener('DOMContentLoaded', () => {
+  loadCatalog();      // <--  JSON section
+  loadDeals();        // <-- first page of API deals
+  initInfiniteScroll();
+  initButtons();
 });
-
-// Initial load
-loadTrendingGames();
-loadRecommendedGames();

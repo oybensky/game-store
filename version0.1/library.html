@@ -35,14 +35,19 @@
   </header>
 
   <!-- Main Content -->
-  <main>
-   <!-- Inside <body> -->
-<h2>Trending Games</h2>
-<div id="trendingGamesContainer" class="game-container"></div>
+  <main class="container py-4">
 
-<h2>Recommended Games</h2>
-<div id="recommendedGamesContainer" class="game-container"></div>
+    <!-- local Catalog from JSON in product-catalog -->
+    <section id="catalogContainer"></section>
+
+    <hr class="border-light"/>
+
+    <!-- live Deals from CheapShark -->
+    <h2 class="mb-3">Live Deals</h2>
+    <div id="apiDealsContainer" class="game-container"></div>
+
   </main>
+
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3 mt-5">
@@ -51,7 +56,6 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/library.js"></script>
+  <script type="module" src="js/library.js"></script>
 </body>
 </html>
