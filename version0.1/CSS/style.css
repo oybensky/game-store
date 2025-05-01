@@ -120,6 +120,14 @@ body {
     gap: 20px;
     padding: 20px;
 }
+.card-title
+{
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: white;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 
 .card {
     background-color: #000000;
