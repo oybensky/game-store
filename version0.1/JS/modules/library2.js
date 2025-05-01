@@ -1,13 +1,13 @@
 // js/library.js
 const catalogContainer = document.getElementById('catalogContainer');
-const apiContainer     = document.getElementById('apiDealsContainer');
+const apiContainer     = document.getElementById('apiContainer');
 let pageNumber         = 0;
-let isFetching         = false;
+let isFetching         = false; 
 
 //loading  JSON catalog
 async function loadCatalog() {
   try {
-    const res = await fetch('./data/product-catalog.json');
+    const res = await fetch('./data/productLibrary.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const { categories, products } = await res.json();
 
@@ -60,7 +60,7 @@ async function loadDeals() {
   
     try {
       const res = await fetch(
-        `https://www.cheapshark.com/api/1.0/deals?pageNumber=${pageNumber}&pageSize=20`
+        `GET https://www.freetogame.com/api/games?start=${pageNumber * 20}&limit=20`
       );
       if (!res.ok) throw new Error(res.statusText);
       const deals = await res.json();

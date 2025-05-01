@@ -1,0 +1,74 @@
+{
+    "categories": [
+      {
+        "categoryId": 1,
+        "categoryName": "Action Games",
+        "description": "Fast-paced games featuring combat, challenges, and exciting gameplay"
+      },
+      {
+        "categoryId": 2,
+        "categoryName": "Role-Playing Games",
+        "description": "Games where players assume the role of characters in a fictional world"
+      },
+      {
+        "categoryId": 3,
+        "categoryName": "Strategy Games",
+        "description": "Games that emphasize tactical thinking and careful planning"
+      },
+      {
+        "categoryId": 4,
+        "categoryName": "Simulation Games",
+        "description": "Games designed to closely simulate real-world activities or systems"
+      },
+      {
+        "categoryId": 5,
+        "categoryName": "Indie Games",
+        "description": "Games created by small independent studios with innovative concepts"
+      }
+    ],
+    "products": [
+        {
+          "id": 101,
+          "categoryId": 1,
+          "itemTitle": "Neon Fury",
+          "description": "A fast-paced cyberpunk action game set in a dystopian future. Battle through neon-lit streets against corporate mercenaries, upgrade your cybernetic implants, and uncover a conspiracy that threatens the entire city.",
+          "brand": "CyberPulse Studios",
+          "unitPrice": 59.99,
+          "quantityInStock": 54,
+          "make": "Digital Dreams Entertainment",
+          "thumbnailImage": "images/imageForCatalog/neonFury.jpg.png",
+          "releaseYear": 2023,
+          "platform": ["PC", "PlayStation 5", "Xbox Series X"],
+          "genre": "Action"
+        },
+        {
+            "id": 101,
+            "categoryId": 3,
+            "itemTitle": "Neon Fury",
+            "description": "A fast-paced cyberpunk action game set in a dystopian future. Battle through neon-lit streets against corporate mercenaries, upgrade your cybernetic implants, and uncover a conspiracy that threatens the entire city.",
+            "brand": "CyberPulse Studios",
+            "unitPrice": 59.99,
+            "quantityInStock": 54,
+            "make": "Digital Dreams Entertainment",
+            "thumbnailImage": "images/imageForCatalog/neonFury.jpg.png",
+            "releaseYear": 2023,
+            "platform": ["PC", "PlayStation 5", "Xbox Series X"],
+            "genre": "Action"
+        },
+        {
+            "id": 101,
+            "categoryId": 2,
+            "itemTitle": "Neon Fury",
+            "description": "A fast-paced cyberpunk action game set in a dystopian future. Battle through neon-lit streets against corporate mercenaries, upgrade your cybernetic implants, and uncover a conspiracy that threatens the entire city.",
+            "brand": "CyberPulse Studios",
+            "unitPrice": 59.99,
+            "quantityInStock": 54,
+            "make": "Digital Dreams Entertainment",
+            "thumbnailImage": "images/imageForCatalog/neonFury.jpg.png",
+            "releaseYear": 2023,
+            "platform": ["PC", "PlayStation 5", "Xbox Series X"],
+            "genre": "Action"
+        }
+        
+    ]
+}

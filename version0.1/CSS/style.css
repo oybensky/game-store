@@ -200,4 +200,12 @@ body {
     background-color: purple;
 }
 
-.btn btn-outline-primary {}
+.btn btn-outline-primary {
+    background-color: purple;
+}
+gmp-map{
+    height: 90vh;
+    width: 100%;
+
+   
+}
