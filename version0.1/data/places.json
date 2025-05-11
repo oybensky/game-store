@@ -1,21 +1,22 @@
 {
-    "places": [
-        {
-        "id": 1,
-        "name": "Central Park",
-        "location": {
-            "latitude": 40.785091,
-            "longitude": -73.968285
-        },
-        "description": "A large public park in New York City."
-        },
-        {
-        "name": "Eiffel Tower",
-        "location": {
-            "latitude": 48.858844,
-            "longitude": 2.294351
-        },
-        "description": "An iron lattice tower on the Champ de Mars in Paris, France."
-        }
-    ]
+  "places": [
+    {
+      "id": 1,
+      "name": "OptikInfo",
+      "location": {
+        "latitude": 45.4659156687315,
+        "longitude": -73.56926609894926
+      },
+      "description": "A place to get the latest tech gadgets and electronics."
+    },
+    {
+      "id": 2,
+      "name": "Best Buy In Montreal",
+      "location": {
+        "latitude": 45.454451736861614,
+        "longitude": -73.6137501918307
+      },
+      "description": "A place to get the latest tech gadgets and electronics."
+    }
+  ]
 }
