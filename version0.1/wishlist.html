@@ -2,178 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="CSS/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wishlist</title>
- 
-  <style>
-    /* Example of one card to see how it would look like - later will be used in css*/
-    .wishlistItem {
-      display: flex;
-      align-items: center;
-      border: 1px solid #ddd;
-      padding: 8px;
-      margin-bottom: 8px;
-    }
-    .wishlistItem img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      margin-right: 12px;
-    }
-    .wishlistDetails {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-    .wishlistGameName {
-      margin: 0 12px 0 0;
-      font-size: 1rem;
-    }
-    .wishlistGamePrice {
-      margin: 0 12px;
-    }
-    .wishlistActions button {
-      margin-left: 8px;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="CSS/style.css">
 
 </head>
 <body>
-  
-  <header>
-    <div id="top-bar">
-      
-     
-      <!-- Cart & Wishlist Links -->
-      <div id="top-links">
-        <a href="cart.html" id="topCartLink">Cart</a>
-        <a href="wishlist.html" id="topWishlistLink" class="active">Wishlist</a>
+  <header class="bg-light py-2 border-bottom">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="input-group w-50">
+        <input type="search" class="form-control" placeholder="Search">
+        <button class="btn btn-outline-primary">Search</button>
+      </div>
+      <div>
+        <a href="cart.html" class="me-3">Cart</a>
+        <a href="wishlist.html" class="fw-bold text-primary">Wishlist</a>
       </div>
     </div>
   </header>
 
-  <!-- NAVIGATION -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">GameStore</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="Home.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="library.html">Library</a></li>
+          <li class="nav-item"><a class="nav-link" href="Award-WinnngPage.html">Award-Winning</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="tournaments.html">Tournament</a></li>
+          <li class="nav-item"><a class="nav-link" href="profilepage.html">Profile</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
+          <li class="nav-item"><a class="nav-link" href="SecondLibrary.html">Second Library</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <div class="input-group">
-    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-        aria-describedby="search-addon" />
-    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>Search</button>
-</div>
-
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-    <i class="bi bi-list"></i>
-</button>
-
-  <div class="navBar">
-
-    <nav>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="Home.html" >Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="library.html">Library</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Award-WinnngPage.html" >Award-Winning</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.html">Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="wishlist.html" class="active">Wishlist</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tournaments.html">Tournament</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="profilepage.html">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact-us.html">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="map.html">Contact Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="SecondLibrary.html">Contact Us</a>
-            </li>
-            </ul>
-        </div>
-    </nav>
-  </div>
-
-  <br>
-  <br>
-
-  <i class="bi bi-suit-heart"></i>
-    <div class="wishlist-box">
-        <img src="images/wishlist-title-inscription-notepad-page-colored-background-352907114.jpg" class="wishlist-image">
+  <main class="container py-4">
+    <div class="text-center">
+      <i class="bi bi-suit-heart display-4 text-danger"></i>
+      <img src="images/wishlist-title-inscription-notepad-page-colored-background-352907114.jpg" alt="Wishlist Title" class="wishlist-image">
     </div>
 
- 
-  <main>
     <section id="wishlistSection">
-      <h1 class="header">My Wishlist</h1>
-      <!-- one-line card for a wishlist item -->
+      <h2 class="mb-4">My Wishlist</h2>
 
       <div class="wishlistItem">
-        <!-- Game Image -->
-
-        <div class="wishlistImage">
-          <img src="placeholder.jpg" alt="Game Image" />
-        </div>
-
-        <!-- Game Details: Name and Price -->
-
+        <img src="placeholder.jpg" alt="Game Image">
         <div class="wishlistDetails">
           <h3 class="wishlistGameName">Game Name Placeholder</h3>
           <p class="wishlistGamePrice">$0.00</p>
         </div>
-
-        <!-- Buttons: Remove and Add to Cart -->
-
         <div class="wishlistActions">
-          <button class="btnRemoveFromWishlist">Remove</button>
-          <button class="btnAddToCart">Add to Cart</button>
+          <button class="btn btn-outline-danger btn-sm">Remove</button>
+          <button class="btn btn-primary btn-sm">Add to Cart</button>
         </div>
       </div>
 
       <div class="wishlistItem">
-        <div class="wishlistImage">
-          <img src="placeholder.jpg" alt="Game Image" />
-        </div>
+        <img src="placeholder.jpg" alt="Game Image">
         <div class="wishlistDetails">
           <h3 class="wishlistGameName">Another Game Placeholder</h3>
           <p class="wishlistGamePrice">$0.00</p>
         </div>
         <div class="wishlistActions">
-          <button class="btnRemoveFromWishlist">Remove</button>
-          <button class="btnAddToCart">Add to Cart</button>
+          <button class="btn btn-outline-danger btn-sm">Remove</button>
+          <button class="btn btn-primary btn-sm">Add to Cart</button>
         </div>
       </div>
-
     </section>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-        <script src="js/main.js"></script>
+  <footer class="text-center text-white bg-dark py-3">
+    <p>&copy; 2023 GameStore. All rights reserved.</p>
+    <p>Follow us on:
+      <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+      <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+      <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+    </p>
+  </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
 </body>
-<footer class="text-center text-white bg-dark py-3">
-  <p>&copy; 2023 GameStore. All rights reserved.</p>
-  <p>Follow us on:
-    <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
-    <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
-    <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
-    <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
-  </p>
-</footer>
 </html>

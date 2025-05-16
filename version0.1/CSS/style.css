@@ -85,8 +85,8 @@ body {
     display: flex;
     justify-content: start;
     align-items: center;
-    width: 100%;
-    height: auto;
+    width: 90%;
+    height: 70vh;
 }
 
 .image2 {
@@ -110,6 +110,34 @@ body {
 .wishlist-box{
  background-color: black;
 }
+.wishlistItem {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      padding: 8px;
+      margin-bottom: 8px;
+    }
+    .wishlistItem img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 12px;
+    }
+    .wishlistDetails {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .wishlistGameName {
+      margin: 0 12px 0 0;
+      font-size: 1rem;
+    }
+    .wishlistGamePrice {
+      margin: 0 12px;
+    }
+    .wishlistActions button {
+      margin-left: 8px;
+    }
 
 #card-container {
     display: flex;
