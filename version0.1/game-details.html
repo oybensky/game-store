@@ -2,105 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
   <title>Game Details</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="CSS/style.css">
+  <!-- bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    crossorigin="anonymous"
+  />
+  
+  <link rel="stylesheet" href="CSS/style.css" />
 </head>
-<body id="top">
+<body class="bg-dark text-white">
 
-  <!-- Header with Search and Links -->
-  <header class="bg-dark text-white py-2">
-    <div class="container d-flex justify-content-between align-items-center">
-      <form id="searchForm" class="d-flex" role="search">
-        <input class="form-control me-2" type="search" id="searchInput" placeholder="Search game..." />
-        <button class="btn btn-outline-light" type="submit">Search</button>
-      </form>
-      <div>
-        <a href="cart.html" class="text-white me-3">Cart</a>
-        <a href="wishlist.html" class="text-white">Wishlist</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-        <i class="bi bi-list"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="Home.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="library.html">Library</a></li>
-          <li class="nav-item"><a class="nav-link" href="Award-WinnngPage.html">Award-Winning</a></li>
-          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
-          <li class="nav-item"><a class="nav-link" href="wishlist.html">Wishlist</a></li>
-          <li class="nav-item"><a class="nav-link" href="tournaments.html">Tournament</a></li>
-          <li class="nav-item"><a class="nav-link" href="profilepage.html">Profile</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
-          <li class="nav-item"><a class="nav-link" href="SecondLibrary.html">Second Library</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Main Content -->
   <main class="container my-5">
+    <!-- game title -->
+    <h1 id="game-title" class="mb-4">Loading…</h1>
 
-    <div class="text-center mb-4">
-      <img src="images/RanniEnding.jpg" alt="Game Preview" class="img-fluid rounded">
-    </div>
+    <div class="row">
+      <!-- left: carousel + description -->
+      <div class="col-md-8">
+        <!-- bootstrap carousel -->
+        <div
+          id="carouselExampleAutoplaying"
+          class="carousel slide mb-4"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+           
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
 
-    <section class="mb-4">
-      <h1 id="gameTitle">Game Title Placeholder</h1>
-    </section>
-
-    <section class="mb-4">
-      <h2>Media</h2>
-      <div class="bg-light p-3 border rounded">Placeholder for Game Picture or Video</div>
-    </section>
-
-    <section class="mb-4">
-      <h2>Description</h2>
-      <p id="gameDescription">Placeholder text for the game description. Information about the game.</p>
-    </section>
-
-    <div class="mb-4 p-4 border rounded">
-      <div class="d-grid gap-2 mb-3">
-        <button id="btnBuyNow" class="btn btn-primary">Buy Now</button>
-        <button id="btnAddToCart" class="btn btn-outline-primary">Add to Cart</button>
-        <button id="btnAddToWishlist" class="btn btn-outline-secondary">Add to Wishlist</button>
+        <!-- Hard-coded description  -->
+        <section class="description">
+          <h2>Description</h2>
+          <p>
+            Experience the thrilling adventure of <strong>[GAME TITLE]</strong>, where
+            players will embark on an epic journey through stunning environments
+            filled with challenging gameplay and unforgettable moments. Developed
+            by <strong>[DEVELOPER]</strong>, this [GENRE] masterpiece offers countless
+            hours of entertainment with its engaging storyline and innovative mechanics.
+          </p>
+          <h4>KEY FEATURES:</h4>
+          <ul>
+            <li>Immersive single-player campaign spanning over 30+ hours of gameplay</li>
+            <li>Competitive online multiplayer modes with ranked matches and leaderboards</li>
+            <li>Stunning visuals powered by the latest graphics technology</li>
+            <li>Dynamic soundtrack that adapts to gameplay situations</li>
+            <li>Regular content updates and seasonal events</li>
+            <li>Customizable character progression system</li>
+          </ul>
+          <h4>SYSTEM REQUIREMENTS:</h4>
+          <p><strong>PlayStation 5:</strong></p>
+          <ul>
+            <li>Storage: 75 GB minimum</li>
+            <li>Online features require PlayStation Plus subscription</li>
+            <li>Enhanced for PS5 with adaptive trigger support and 3D audio</li>
+          </ul>
+          <p><strong>PlayStation 4:</strong></p>
+          <ul>
+            <li>Storage: 65 GB minimum</li>
+            <li>Performance Mode: 1080p/60fps<br/>
+                Quality Mode: 1440p/30fps</li>
+          </ul>
+          <p><strong>Xbox Series X|S:</strong></p>
+          <ul>
+            <li>Storage: 75 GB minimum</li>
+            <li>Online features require Xbox Game Pass Ultimate or Xbox Live Gold</li>
+            <li>Series X: 4K/60fps with ray tracing<br/>
+                Series S: 1440p/60fps</li>
+          </ul>
+          <p><strong>Xbox One:</strong></p>
+          <ul>
+            <li>Storage: 65 GB minimum</li>
+            <li>Performance Mode: 1080p/30fps</li>
+          </ul>
+          <p><strong>PC:</strong></p>
+          <ul>
+            <li>OS: Windows 10 64-bit</li>
+            <li>CPU: Intel Core i5-8400 or AMD Ryzen 5 2600X</li>
+            <li>Memory: 16 GB RAM</li>
+            <li>Graphics: NVIDIA GeForce GTX 1060 6GB or AMD Radeon RX 580 8GB</li>
+            <li>DirectX: Version 12</li>
+            <li>Network: Broadband Internet connection</li>
+            <li>Storage: 75 GB available space (SSD recommended)</li>
+          </ul>
+          <p>
+            <em>NOTE:</em> Online features and cross-platform play available across all
+            supported platforms. Purchase includes free access to next-gen upgrade.
+          </p>
+        </section>
       </div>
-      <div>
-        <p><strong>Developer:</strong> <span id="developerPlaceholder">Placeholder Developer Info</span></p>
-        <p><strong>Publisher:</strong> <span id="publisherPlaceholder">Placeholder Publisher Info</span></p>
-        <p><strong>Release Date:</strong> <span id="releaseDatePlaceholder">Placeholder Release Date</span></p>
-        <p><strong>Platform:</strong> <span id="platformPlaceholder">Placeholder Platform Info</span></p>
-        <p><strong>Price:</strong> <span id="pricePlaceholder">$0.00</span></p>
+
+      <!--right column: buy/add + details -->
+      <div class="col-md-4">
+        <div class="card bg-dark text-white mb-4">
+          <div class="card-body">
+            <button id="buy-now" class="btn btn-outline-light w-100 mb-2">
+              Buy Now
+            </button>
+            <button id="add-to-cart" class="btn btn-success w-100">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div class="card bg-dark text-white">
+          <div class="card-body">
+            <h5 class="card-title">Details</h5>
+            <p><strong>Price:</strong> <span id="game-price">$0.00</span></p>
+            <p><strong>Publisher:</strong> <span id="game-publisher">—</span></p>
+            <p><strong>Developer:</strong> <span id="game-developer">—</span></p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <section class="mb-4">
-      <h2>Reviews</h2>
-      <div id="reviewsPlaceholder" class="bg-light p-3 border rounded">Placeholder for User Reviews</div>
-    </section>
-
-    <div class="text-end">
-      <a href="#top" class="btn btn-secondary">Back to Top</a>
-    </div>
-
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3">
-    &copy; 2025 Game Store - All rights reserved.
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  <script src="JS/main.js"></script>
+  
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"
+  ></script>
+  
+  <script type="module" src="JS/game-details.js"></script>
 </body>
 </html>
