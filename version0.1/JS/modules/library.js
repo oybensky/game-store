@@ -1,6 +1,7 @@
 // js/library.js
 const catalogContainer = document.getElementById('catalogContainer');
 const apiContainer     = document.getElementById('apiDealsContainer');
+
 let pageNumber         = 0;
 let isFetching         = false;
 
@@ -136,3 +137,70 @@ document.addEventListener('DOMContentLoaded', () => {
   initInfiniteScroll();
   initButtons();
 });
+
+const searchInput = document.querySelector("input[type='search']");
+const searchForm = document.querySelector("form[role='search']");
+
+// Store all game cards for searching
+let allGameCards = [];
+
+// Enhanced search function
+function performSearch(searchTerm) {
+  searchTerm = searchTerm.toLowerCase().trim();
+  
+  // Get all game cards currently in the DOM
+  const catalogCards = document.querySelectorAll('#catalogContainer .game-card');
+  const apiCards = document.querySelectorAll('#apiDealsContainer .game-card');
+  
+  // Combine both sets of cards
+  allGameCards = [...catalogCards, ...apiCards];
+  
+  // If search is empty, show all cards
+  if (searchTerm === '') {
+    allGameCards.forEach(card => {
+      card.style.display = 'flex';
+    });
+    return;
+  }
+  
+  // Filter cards based on search term
+  allGameCards.forEach(card => {
+    const title = card.querySelector('h3').textContent.toLowerCase();
+    if (title.includes(searchTerm)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Update the existing event listener or create a new one
+searchInput.addEventListener('input', (e) => {
+  const value = e.target.value;
+  performSearch(value);
+});
+
+// Handle form submission to prevent page reload
+searchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  performSearch(searchInput.value);
+});
+
+// Modify the original document DOMContentLoaded event to add search after everything loads
+const originalDOMContentLoaded = document.addEventListener;
+document.addEventListener = function(event, callback) {
+  if (event === 'DOMContentLoaded') {
+    const enhancedCallback = function() {
+      callback();
+      // Initialize search after catalog and deals have loaded
+      setTimeout(() => {
+        performSearch('');
+      }, 1000); // Give time for catalog and deals to load
+    };
+    originalDOMContentLoaded.call(document, event, enhancedCallback);
+  } else {
+    originalDOMContentLoaded.call(document, event, callback);
+  }
+};
+
+
