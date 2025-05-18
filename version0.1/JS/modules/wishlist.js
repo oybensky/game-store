@@ -1,22 +1,19 @@
-// JS/modules/wishlist.js
-
 document.addEventListener('DOMContentLoaded', () => {
     loadWishlist();
     setupButtonListeners();
   });
   
-  // Load wishlist items from localStorage and display them
+  // loading wishlist items from localStorage and display them
   async function loadWishlist() {
-    const wishlistSection = document.getElementById('wishlistSection');
+    //get the wishlistContainer 
+    const wishlistContainer = document.getElementById('wishlistContainer');
     
-    // Get the heading and clear the rest of the content
-    const heading = wishlistSection.querySelector('h2');
-    wishlistSection.innerHTML = '';
-    wishlistSection.appendChild(heading);
+    // clear the container
+    wishlistContainer.innerHTML = '';
     
     const wishlistIds = JSON.parse(localStorage.getItem('wishlist') || '[]');
     
-    // Check if wishlist is empty
+    // check if wishlist is empty
     if (wishlistIds.length === 0) {
       const emptyMsg = document.createElement('div');
       emptyMsg.className = 'text-center my-5';
@@ -25,25 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
         <h4>Your wishlist is empty</h4>
         <p>Find games you like in the <a href="library.html" class="text-white">library</a> and add them to your wishlist!</p>
       `;
-      wishlistSection.appendChild(emptyMsg);
+      wishlistContainer.appendChild(emptyMsg);
       return;
     }
     
-    // Create container for wishlist items
-    const wishlistContainer = document.createElement('div');
-    wishlistContainer.id = 'wishlistContainer';
-    wishlistSection.appendChild(wishlistContainer);
-    
-    // Load catalog items
+    // load catalog items
     try {
       const catalogRes = await fetch('./data/product-catalog.json');
       if (!catalogRes.ok) throw new Error(`HTTP error ${catalogRes.status}`);
       const { categories, products } = await catalogRes.json();
       
-      // Filter products that are in the wishlist
+      // filter products that are in the wishlist
       const wishlistProducts = products.filter(p => wishlistIds.includes(p.itemId));
       
-      // Add catalog items to wishlist
+      // add catalog items to wishlist
       wishlistProducts.forEach(p => {
         const item = createWishlistItem(
           p.itemId,
@@ -55,15 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
         wishlistContainer.appendChild(item);
       });
       
-      // Now load API deals
+      // load API deals
       const apiRes = await fetch('https://www.cheapshark.com/api/1.0/deals?pageNumber=0&pageSize=50');
       if (!apiRes.ok) throw new Error(`API error ${apiRes.status}`);
       const deals = await apiRes.json();
       
-      // Filter deals that are in the wishlist
+      // filter deals that are in the wishlist
       const wishlistDeals = deals.filter(d => wishlistIds.includes(d.dealID));
       
-      // Add API deals to wishlist
+      // API deals to wishlist
       wishlistDeals.forEach(d => {
         const item = createWishlistItem(
           d.dealID,
@@ -75,9 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
         wishlistContainer.appendChild(item);
       });
       
-      // If no items were found, show message for missing items
-      if (wishlistProducts.length === 0 && wishlistDeals.length === 0) {
-        // Some IDs in wishlist didn't match any products/deals
+      // If no items were found, showing message for missing items
+      if (wishlistProducts.length === 0 && wishlistDeals.length === 0 && wishlistIds.length > 0) {
+        // some IDs in wishlist didn't match any products/deals
         const unknownIds = wishlistIds.filter(id => 
           !products.some(p => p.itemId === id) && 
           !deals.some(d => d.dealID === id)
@@ -99,11 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const errorMsg = document.createElement('div');
       errorMsg.className = 'alert alert-danger';
       errorMsg.textContent = `Couldn't load wishlist: ${err.message}`;
-      wishlistSection.appendChild(errorMsg);
+      wishlistContainer.appendChild(errorMsg);
     }
   }
   
-  // Create a wishlist item element
+  // creating a wishlist item element
   function createWishlistItem(id, image, title, price, isDeal) {
     const item = document.createElement('div');
     item.className = 'wishlistItem';
@@ -123,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return item;
   }
   
-  // Set up button click handlers
+  // set up button click handlers
   function setupButtonListeners() {
     document.body.addEventListener('click', e => {
       // Handle remove from wishlist
@@ -140,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // Remove item from wishlist
+  // remove item from wishlist
   function removeFromWishlist(id) {
     const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
     const updatedWishlist = wishlist.filter(itemId => itemId !== id);
@@ -148,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadWishlist(); // Reload the wishlist display
   }
   
-  // Add item to cart
+  // add item to cart
   function addToCart(id) {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     
