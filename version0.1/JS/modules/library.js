@@ -111,21 +111,34 @@ function initInfiniteScroll(){
     if (scrollTop + clientHeight >= scrollHeight - 100) loadDeals();
   });
 }
-function initButtons(){
+// Add this to your existing initButtons function in library.js
+
+function initButtons() {
   document.body.addEventListener('click', e => {
-    let key, id;
-    if (e.target.matches('.add-to-cart')) {
-      key = 'cart';    id = e.target.dataset.deal || e.target.dataset.id;
-    }
-    if (e.target.matches('.add-to-wishlist')) {
-      key = 'wishlist'; id = e.target.dataset.deal || e.target.dataset.id;
-    }
-    if (!key) return;
-    const arr = JSON.parse(localStorage.getItem(key) || '[]');
-    if (!arr.includes(id)) {
-      arr.push(id);
-      localStorage.setItem(key, JSON.stringify(arr));
-      alert(`Added to ${key}`);
+    // Check if we clicked a button
+    if (e.target.matches('.add-to-cart') || e.target.matches('.add-to-wishlist')) {
+      // Stop event propagation to prevent the card's click event
+      e.stopPropagation();
+      
+      let key, id;
+      if (e.target.matches('.add-to-cart')) {
+        key = 'cart';    
+        id = e.target.dataset.deal || e.target.dataset.id;
+      }
+      if (e.target.matches('.add-to-wishlist')) {
+        key = 'wishlist'; 
+        id = e.target.dataset.deal || e.target.dataset.id;
+      }
+      if (!key) return;
+      
+      const arr = JSON.parse(localStorage.getItem(key) || '[]');
+      if (!arr.includes(id)) {
+        arr.push(id);
+        localStorage.setItem(key, JSON.stringify(arr));
+        alert(`Added to ${key}`);
+      } else {
+        alert(`This game is already in your ${key}`);
+      }
     }
   });
 }
