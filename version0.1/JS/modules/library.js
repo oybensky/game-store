@@ -35,9 +35,12 @@ async function loadCatalog() {
             <button class="btn btn-success add-to-cart"     data-id="${p.itemId}">Add to Cart</button>
             <button class="btn btn-outline-primary add-to-wishlist" data-id="${p.itemId}">Wishlist</button>
           `;
-          card.onclick = () => {
-            sessionStorage.setItem('selectedProduct', p.itemId);
-            window.location.href = 'game-details.html';
+          card.onclick = (e) => {
+            // only navigate if not clicking a button
+            if (!e.target.matches('button')) {
+              sessionStorage.setItem('selectedProduct', p.itemId);
+              window.location.href = 'game-details.html';
+            }
           };
           grid.appendChild(card);
         });
@@ -53,7 +56,7 @@ async function loadCatalog() {
   }
 }
 
-// 2) Infinite‐scroll live deals 
+//  infinite‐scroll live deals 
 async function loadDeals() {
     if (isFetching) return;
     isFetching = true;
@@ -87,9 +90,12 @@ async function loadDeals() {
         `;
   
         // click  details page
-        card.onclick = () => {
-          sessionStorage.setItem('selectedDeal', d.dealID);
-          window.location.href = 'game-details.html';
+        card.onclick = (e) => {
+          // Only navigate if not clicking a button
+          if (!e.target.matches('button')) {
+            sessionStorage.setItem('selectedDeal', d.dealID);
+            window.location.href = 'game-details.html';
+          }
         };
   
         apiContainer.appendChild(card);
@@ -103,36 +109,49 @@ async function loadDeals() {
     }
   }
 
-// 3) Hook up scroll & buttons
+//  hooking up scroll & buttons
 function initInfiniteScroll(){
   window.addEventListener('scroll', () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 100) loadDeals();
   });
 }
+
 function initButtons(){
   document.body.addEventListener('click', e => {
-    let key, id;
-    if (e.target.matches('.add-to-cart')) {
-      key = 'cart';    id = e.target.dataset.deal || e.target.dataset.id;
-    }
-    if (e.target.matches('.add-to-wishlist')) {
-      key = 'wishlist'; id = e.target.dataset.deal || e.target.dataset.id;
-    }
-    if (!key) return;
-    const arr = JSON.parse(localStorage.getItem(key) || '[]');
-    if (!arr.includes(id)) {
-      arr.push(id);
-      localStorage.setItem(key, JSON.stringify(arr));
-      alert(`Added to ${key}`);
+    // stoping event propagation when clicking buttons to prevent card navigation
+    if (e.target.matches('.add-to-cart') || e.target.matches('.add-to-wishlist')) {
+      e.stopPropagation(); // this prevents the card's onclick handler from executing
+      
+      let key, id;
+      if (e.target.matches('.add-to-cart')) {
+        key = 'cart';    
+        id = e.target.dataset.deal || e.target.dataset.id;
+      }
+      if (e.target.matches('.add-to-wishlist')) {
+        key = 'wishlist'; 
+        id = e.target.dataset.deal || e.target.dataset.id;
+      }
+      
+      if (!key) return;
+      
+      const arr = JSON.parse(localStorage.getItem(key) || '[]');
+      if (!arr.includes(id)) {
+        arr.push(id);
+        localStorage.setItem(key, JSON.stringify(arr));
+        alert(`Added to ${key}!`);
+      } else {
+        alert(`This game is already in your ${key}.`);
+      }
     }
   });
 }
 
-// 4) Bootstrap
+
+// bootstrap
 document.addEventListener('DOMContentLoaded', () => {
-  loadCatalog();      // <--  JSON section
-  loadDeals();        // <-- first page of API deals
+  loadCatalog();      //  JSON section
+  loadDeals();        // first page of API deals
   initInfiniteScroll();
   initButtons();
 });
@@ -140,18 +159,18 @@ document.addEventListener('DOMContentLoaded', () => {
 const searchInput = document.querySelector("input[type='search']");
 const searchForm = document.querySelector("form[role='search']");
 
-// Store all game cards for searching
+// store all game cards for searching
 let allGameCards = [];
 
-// Enhanced search function
+// search function
 function performSearch(searchTerm) {
   searchTerm = searchTerm.toLowerCase().trim();
   
-  // Get all game cards currently in the DOM
+  // geting all game cards currently in the DOM
   const catalogCards = document.querySelectorAll('#catalogContainer .game-card');
   const apiCards = document.querySelectorAll('#apiDealsContainer .game-card');
   
-  // Combine both sets of cards
+  // combine both sets of cards
   allGameCards = [...catalogCards, ...apiCards];
   
   // If search is empty, show all cards
@@ -162,7 +181,7 @@ function performSearch(searchTerm) {
     return;
   }
   
-  // Filter cards based on search term
+  // filtering cards based on search term
   allGameCards.forEach(card => {
     const title = card.querySelector('h3').textContent.toLowerCase();
     if (title.includes(searchTerm)) {
@@ -173,28 +192,28 @@ function performSearch(searchTerm) {
   });
 }
 
-// Update the existing event listener or create a new one
+// updating the existing event listener or create a new one
 searchInput.addEventListener('input', (e) => {
   const value = e.target.value;
   performSearch(value);
 });
 
-// Handle form submission to prevent page reload
+// handling form submission to prevent page reload
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
   performSearch(searchInput.value);
 });
 
-// Modify the original document DOMContentLoaded event to add search after everything loads
+// modifying the original document DOMContentLoaded event to add search after everything loads
 const originalDOMContentLoaded = document.addEventListener;
 document.addEventListener = function(event, callback) {
   if (event === 'DOMContentLoaded') {
     const enhancedCallback = function() {
       callback();
-      // Initialize search after catalog and deals have loaded
+      // initializing search after catalog and deals have loaded
       setTimeout(() => {
         performSearch('');
-      }, 1000); // Give time for catalog and deals to load
+      }, 1000); 
     };
     originalDOMContentLoaded.call(document, event, enhancedCallback);
   } else {
