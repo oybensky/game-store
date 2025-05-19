@@ -10,5 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 document.addEventListener("DOMContentLoaded", function () {
- initCart(); // Initialize the cart functionality
+ initCart();// Initialize the cart functionality
+ initMap(); // Initialize the map functionality
 });

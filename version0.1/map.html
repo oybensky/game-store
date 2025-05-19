@@ -44,11 +44,16 @@
       <div class="row">
         <div class="col-md-2">
           <input type="search" class="form-control rounded" placeholder="Search" id="searchButton" />
+          <ul id="searchResults" class="list-group mt-2" style="z-index: 9999; position: absolute;"></ul>
         </div>
         <div class="col-md-10">
           <h1 class="text-white text-center">Game Store Map</h1>
           <p class="text-white text-center">Find your favorite games and stores on the map and buy electronics!</p>
-          <div id="map"></div>
+
+          <div id="map">
+
+          </div>
+
         </div>
       </div>
     </div>
@@ -66,23 +71,13 @@
     </p>
   </footer>
 
-    <script>
-        function initMap() {
-        const map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 45.45056521648996, lng: -73.6141017240869 },
-            zoom: 12,
-        });
-    
-        const marker = new google.maps.Marker({
-            position: { lat: 45.45056521648996, lng: -73.6141017240869 },
-            map: map,
-            title: "Game Store Location",
-        });
-        }
-    </script>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdOpI347dIcX6SPj8e0UGxtc5M_LiKfIs&callback=initMap&v=beta" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+  <script type="module" src="JS/modules/map.js"></script>
+  <script type="module" src="JS/main.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdOpI347dIcX6SPj8e0UGxtc5M_LiKfIs&callback=initMap&v=beta"
+    defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

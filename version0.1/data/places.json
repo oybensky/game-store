@@ -7,7 +7,8 @@
         "latitude": 45.4659156687315,
         "longitude": -73.56926609894926
       },
-      "description": "A place to get the latest tech gadgets and electronics."
+      "description": "A place to get the latest tech gadgets and electronics.",
+            "image": "images/Opko.jpg"
     },
     {
       "id": 2,
@@ -16,7 +17,21 @@
         "latitude": 45.454451736861614,
         "longitude": -73.6137501918307
       },
-      "description": "A place to get the latest tech gadgets and electronics."
+      "description": "A place to get the latest tech gadgets and electronics.",
+       "image": "images/BestBuy.jpg"
+     
+    },
+     {
+      "id": 3,
+      "name": "Game Stop",
+      "location": { 
+        "latitude": 45.80629034654391,
+        "longitude": -73.4574609006257
+      },
+      "description": "If you want a place to buy the best games. Here's your stop",
+      "image": "images/Gamestop.jpg"
+
+      
     }
   ]
 }
