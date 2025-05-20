@@ -72,7 +72,7 @@ async function loadDeals() {
       const card = document.createElement('div');
       card.className = 'game-card';
 
-      // Use internalName and normalPrice from the API
+      
       card.innerHTML = `
         <div class="game-image">
           <img src="${d.thumb}" alt="${d.internalName}" />
@@ -93,14 +93,25 @@ async function loadDeals() {
         </button>
       `;
 
-      // click  details page
-      card.onclick = (e) => {
-        // Only navigate if not clicking a button
-        if (!e.target.matches('button')) {
-          sessionStorage.setItem('selectedDeal', d.dealID);
-          window.location.href = 'game-details.html';
+      card.querySelector('.add-to-cart').addEventListener('click', e => {
+        e.stopPropagation();
+        const btn = e.currentTarget;
+        const game = {
+          id: btn.dataset.id,
+          normalPrice: parseFloat(btn.dataset.price),
+          title: btn.dataset.title,
+          thumb: btn.dataset.thumb
+        };
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (!cart.find(item => item.id === game.id)) {
+          cart.push(game);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          console.log('Cart now:', cart);
+          alert('✔ Added to cart!');
+        } else {
+          alert('Already in your cart.');
         }
-      };
+      });
 
       apiContainer.appendChild(card);
     });
@@ -123,15 +134,12 @@ function initInfiniteScroll(){
 
 function initButtons(){
   document.body.addEventListener('click', e => {
-    // stoping event propagation when clicking buttons to prevent card navigation
-    if (e.target.matches('.add-to-cart') || e.target.matches('.add-to-wishlist')) {
-      e.stopPropagation(); // this prevents the card's onclick handler from executing
+ 
+    if (e.target.matches('.add-to-wishlist')) {
+      e.stopPropagation(); 
       
       let key, id;
-      if (e.target.matches('.add-to-cart')) {
-        key = 'cart';    
-        id = e.target.dataset.deal || e.target.dataset.id;
-      }
+    
       if (e.target.matches('.add-to-wishlist')) {
         key = 'wishlist'; 
         id = e.target.dataset.deal || e.target.dataset.id;
@@ -151,11 +159,115 @@ function initButtons(){
   });
 }
 
+document.body.addEventListener('click', e => {
+  if (e.target.matches('.add-to-cart')) {
+    const btn = e.target;
+    if (!btn.dataset.id || !btn.dataset.price || !btn.dataset.title || !btn.dataset.thumb) {
+      console.error('Missing data attributes:', btn.dataset);
+      return;
+    }
+    const game = {
+      id: btn.dataset.id,
+      normalPrice: parseFloat(btn.dataset.price),
+      title: btn.dataset.title,
+      thumb: btn.dataset.thumb
+    };
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    if (!cart.find(item => item.id === game.id)) {
+      cart.push(game);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      console.log('Cart updated:', cart);
+      alert('✔ Added to cart!');
+    } else {
+      alert('Already in your cart.');
+    }
+  }
+});
+
+
+async function initCart() {
+  // load cart from localStorage default to empty array if not present
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+  // normalize and filter cart items
+  cart = cart
+    .map(item => {
+      // if item has gameID, convert it to the expected structure
+      if (item.gameID) {
+        return {
+          id: item.gameID,
+          normalPrice: item.normalPrice,
+          title: item.title || 'Unknown Title', // fallback if title is missing
+          thumb: item.thumb || '' // allback if thumb is missing
+        };
+      }
+      return item;
+    })
+    .filter(item => 
+      item && 
+      typeof item === 'object' && 
+      'id' in item && 
+      'normalPrice' in item
+    );
+
+  console.log('Loaded cart:', cart);
+
+  const container = document.getElementById('review-items');
+  if (!cart.length) {
+    container.innerHTML = '<p class="text-muted">Your cart is empty.</p>';
+    updateSummary([]);
+    return;
+  }
+
+  container.innerHTML = '';
+  for (const item of cart) {
+    const card = document.createElement('div');
+    card.className = 'card mb-3 shadow-sm';
+    card.innerHTML = `
+      <div class="row g-0 align-items-center">
+        <div class="col-md-4">
+          <img src="${item.thumb}" class="img-fluid rounded-start" alt="${item.title}" style="max-height: 150px; object-fit: cover;">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title mb-2">${item.title}</h5>
+            <p class="card-text mb-2">Price: ${formatPrice(item.normalPrice)}</p>
+            <button class="btn btn-outline-danger btn-sm remove-btn" data-id="${item.id}">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>`;
+    container.appendChild(card);
+  }
+
+  updateSummary(cart);
+
+  //  remove button functionality
+  document.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      const newCart = cart.filter(it => it.id !== id);
+      localStorage.setItem('cart', JSON.stringify(newCart));
+      initCart(); // Re-render
+    });
+  });
+}
+
+function formatPrice(n) {
+  return `$${n.toFixed(2)}`;
+}
+
+function updateSummary(cart) {
+  const subtotal = cart.reduce((sum, item) => sum + item.normalPrice, 0);
+  // updating DOM with subtotal, tax, total, etc.
+  console.log('Subtotal:', subtotal);
+}
 
 // bootstrap
 document.addEventListener('DOMContentLoaded', () => {
-  loadCatalog();      //  JSON section
-  loadDeals();        // first page of API deals
+  loadCatalog();      
+  loadDeals();        
   initInfiniteScroll();
   initButtons();
 });
