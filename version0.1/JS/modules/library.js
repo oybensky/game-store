@@ -58,56 +58,60 @@ async function loadCatalog() {
 
 //  infinite‐scroll live deals 
 async function loadDeals() {
-    if (isFetching) return;
-    isFetching = true;
-  
-    try {
-      const res = await fetch(
-        `https://www.cheapshark.com/api/1.0/deals?pageNumber=${pageNumber}&pageSize=20`
-      );
-      if (!res.ok) throw new Error(res.statusText);
-      const deals = await res.json();
-  
-      deals.forEach(d => {
-        const card = document.createElement('div');
-        card.className = 'game-card';
-  
-        // Use internalName and normalPrice from the API
-        card.innerHTML = `
-          <div class="game-image">
-            <img src="${d.thumb}" alt="${d.internalName}" />
-          </div>
-          <h3>${d.title}</h3>
-          <p>Price: $${parseFloat(d.normalPrice).toFixed(2)}</p>
-          <p>Sale: $${parseFloat(d.salePrice).toFixed(2)}</p>
-         
-          <button class="btn btn-success add-to-cart"     data-deal="${d.dealID}">
-            Add to Cart
-          </button>
-          <button class="btn btn-outline-primary add-to-wishlist" data-deal="${d.dealID}">
-            Wishlist
-          </button>
-        `;
-  
-        // click  details page
-        card.onclick = (e) => {
-          // Only navigate if not clicking a button
-          if (!e.target.matches('button')) {
-            sessionStorage.setItem('selectedDeal', d.dealID);
-            window.location.href = 'game-details.html';
-          }
-        };
-  
-        apiContainer.appendChild(card);
-      });
-  
-      pageNumber++;
-    } catch (err) {
-      console.error('Error loading deals:', err);
-    } finally {
-      isFetching = false;
-    }
+  if (isFetching) return;
+  isFetching = true;
+
+  try {
+    const res = await fetch(
+      `https://www.cheapshark.com/api/1.0/deals?pageNumber=${pageNumber}&pageSize=20`
+    );
+    if (!res.ok) throw new Error(res.statusText);
+    const deals = await res.json();
+
+    deals.forEach(d => {
+      const card = document.createElement('div');
+      card.className = 'game-card';
+
+      // Use internalName and normalPrice from the API
+      card.innerHTML = `
+        <div class="game-image">
+          <img src="${d.thumb}" alt="${d.internalName}" />
+        </div>
+        <h3>${d.title}</h3>
+        <p>Price: $${parseFloat(d.normalPrice).toFixed(2)}</p>
+        <p>Sale: $${parseFloat(d.salePrice).toFixed(2)}</p>
+       
+        <button class="btn btn-success add-to-cart" 
+        data-id="${d.gameID}" 
+        data-price="${parseFloat(d.normalPrice).toFixed(2)}" 
+        data-title="${d.title}" 
+        data-thumb="${d.thumb}">
+        Add to Cart
+      </button>
+        <button class="btn btn-outline-primary add-to-wishlist" data-deal="${d.dealID}">
+          Wishlist
+        </button>
+      `;
+
+      // click  details page
+      card.onclick = (e) => {
+        // Only navigate if not clicking a button
+        if (!e.target.matches('button')) {
+          sessionStorage.setItem('selectedDeal', d.dealID);
+          window.location.href = 'game-details.html';
+        }
+      };
+
+      apiContainer.appendChild(card);
+    });
+
+    pageNumber++;
+  } catch (err) {
+    console.error('Error loading deals:', err);
+  } finally {
+    isFetching = false;
   }
+}
 
 //  hooking up scroll & buttons
 function initInfiniteScroll(){
