@@ -107,7 +107,7 @@ async function loadDeals() {
           cart.push(game);
           localStorage.setItem('cart', JSON.stringify(cart));
           console.log('Cart now:', cart);
-          alert('✔ Added to cart!');
+          alert(' Added to cart!');
         } else {
           alert('Already in your cart.');
         }
@@ -177,7 +177,7 @@ document.body.addEventListener('click', e => {
       cart.push(game);
       localStorage.setItem('cart', JSON.stringify(cart));
       console.log('Cart updated:', cart);
-      alert('✔ Added to cart!');
+      alert(' Added to cart!');
     } else {
       alert('Already in your cart.');
     }

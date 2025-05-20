@@ -39,7 +39,6 @@ export async function initMap() {
       markers.push({ marker, location });
     });
 
-    // 🧠 Search Logic
     const searchInput = document.getElementById("searchButton");
     const resultList = document.getElementById("searchResults");
 
