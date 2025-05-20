@@ -1,138 +1,112 @@
-// js/library.js
-const catalogContainer = document.getElementById('catalogContainer');
-const apiContainer     = document.getElementById('apiContainer');
-let pageNumber         = 0;
-let isFetching         = false; 
+const freetogameContainer = document.getElementById('freetogameContainer');
+let ftgPageNumber = 0;
+let isFTGFetching = false;
+const proxy = "https://cors-anywhere.herokuapp.com/";
+const apiUrl = `${proxy}https://www.freetogame.com/api/games?start=${ftgPageNumber * 20}&limit=20`;
 
-//loading  JSON catalog
-async function loadCatalog() {
+
+async function loadFreeToPlayGames() {
+  if (isFTGFetching) return;
+  isFTGFetching = true;
+
   try {
-    const res = await fetch('./data/productLibrary.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const { categories, products } = await res.json();
+    const response = await fetch(apiUrl)
+    if (!response.ok) throw new Error(`HTTP error! ${response.status}`);
+    console.log("library2.js is loading");
 
-    categories.forEach(cat => {
-      const section = document.createElement('section');
-      section.className = 'mb-5';
-      section.innerHTML = `<h2>${cat.categoryName}</h2>`;
+    const games = await response.json();
 
-      const grid = document.createElement('div');
-      grid.className = 'game-container';
+    games.forEach(game => {
+      const card = document.createElement('div');
+      card.className = 'game-card';
 
-      products
-        .filter(p => p.categoryId === cat.categoryId)
-        .forEach(p => {
-          const card = document.createElement('div');
-          card.className = 'game-card';
-          card.innerHTML = `
-            <div class="game-image">
-              <img src="${p.thumbnailImage}" alt="${p.itemTitle}" />
-            </div>
-            <h3>${p.itemTitle}</h3>
-            <p>Studio: ${p.brand}</p>
-            <p>Rating: ${p.rating ?? 'N/A'}</p>
-            <p>Price: $${p.unitPrice.toFixed(2)}</p>
-            <button class="btn btn-success add-to-cart"     data-id="${p.itemId}">Add to Cart</button>
-            <button class="btn btn-outline-primary add-to-wishlist" data-id="${p.itemId}">Wishlist</button>
-          `;
-          card.onclick = () => {
-            sessionStorage.setItem('selectedProduct', p.itemId);
-            window.location.href = 'game-details.html';
-          };
-          grid.appendChild(card);
-        });
+      card.innerHTML = `
+        <div class="game-image">
+          <img src="${game.thumbnail}" alt="${game.title}" />
+        </div>
+        <h3>${game.title}</h3>
+        <p>Genre: ${game.genre}</p>
+        <p>Platform: ${game.platform}</p>
+        <a href="${game.game_url}" target="_blank" class="btn btn-primary">Play Now</a>
+        <button class="btn btn-success add-to-cart" 
+                data-id="${game.id}" 
+                data-title="${game.title}" 
+                data-thumb="${game.thumbnail}" 
+                data-price="0.00">Add to Cart</button>
+        <button class="btn btn-outline-primary add-to-wishlist" data-id="${game.id}">
+          Wishlist
+        </button>
+      `;
 
-      section.appendChild(grid);
-      catalogContainer.appendChild(section);
+      freetogameContainer.appendChild(card);
     });
+
+    ftgPageNumber++;
   } catch (err) {
-    console.error('Error loading catalog:', err);
-    const errMsg = document.createElement('p');
-    errMsg.textContent = ` Couldn’t load catalog: ${err.message}`;
-    catalogContainer.appendChild(errMsg);
+    console.error("Failed to fetch FreeToGame games:", err);
+  } finally {
+    isFTGFetching = false;
   }
 }
-
-// 2) Infinite‐scroll live deals 
-async function loadDeals() {
-    if (isFetching) return;
-    isFetching = true;
-  
-    try {
-      const res = await fetch(
-        `GET https://www.freetogame.com/api/games?start=${pageNumber * 20}&limit=20`
-      );
-      if (!res.ok) throw new Error(res.statusText);
-      const deals = await res.json();
-  
-      deals.forEach(d => {
-        const card = document.createElement('div');
-        card.className = 'game-card';
-  
-        // Use internalName and normalPrice from the API
-        card.innerHTML = `
-          <div class="game-image">
-            <img src="${d.thumb}" alt="${d.internalName}" />
-          </div>
-          <h3>${d.title}</h3>
-          <p>Price: $${parseFloat(d.normalPrice).toFixed(2)}</p>
-          <p>Sale: $${parseFloat(d.salePrice).toFixed(2)}</p>
-         
-          <button class="btn btn-success add-to-cart"     data-deal="${d.dealID}">
-            Add to Cart
-          </button>
-          <button class="btn btn-outline-primary add-to-wishlist" data-deal="${d.dealID}">
-            Wishlist
-          </button>
-        `;
-  
-        // click  details page
-        card.onclick = () => {
-          sessionStorage.setItem('selectedDeal', d.dealID);
-          window.location.href = 'game-details.html';
-        };
-  
-        apiContainer.appendChild(card);
-      });
-  
-      pageNumber++;
-    } catch (err) {
-      console.error('Error loading deals:', err);
-    } finally {
-      isFetching = false;
-    }
-  }
-
-// 3) Hook up scroll & buttons
-function initInfiniteScroll(){
-  window.addEventListener('scroll', () => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight - 100) loadDeals();
-  });
-}
-function initButtons(){
+function initButtons() {
   document.body.addEventListener('click', e => {
-    let key, id;
+    e.stopPropagation();
+
+    let key = null;
+    let id = null;
+    let item = null;
+
     if (e.target.matches('.add-to-cart')) {
-      key = 'cart';    id = e.target.dataset.deal || e.target.dataset.id;
+      key = 'cart';
+      id = e.target.dataset.id;
+      item = {
+        id,
+        title: e.target.dataset.title,
+        thumb: e.target.dataset.thumb,
+        normalprice: parseFloat(e.target.dataset.price)
+      };
+
     }
+    function showToast(message) {
+      const toastEl = document.getElementById('cartToast');
+      const toastBody = toastEl.querySelector('.toast-body');
+      toastBody.textContent = message;
+
+      const toast = new bootstrap.Toast(toastEl);
+      toast.show();
+    }
+
     if (e.target.matches('.add-to-wishlist')) {
-      key = 'wishlist'; id = e.target.dataset.deal || e.target.dataset.id;
+      key = 'wishlist';
+      id = e.target.dataset.id;
     }
-    if (!key) return;
-    const arr = JSON.parse(localStorage.getItem(key) || '[]');
-    if (!arr.includes(id)) {
-      arr.push(id);
-      localStorage.setItem(key, JSON.stringify(arr));
-      alert(`Added to ${key}`);
+
+    if (!key || !id) return;
+
+    const stored = JSON.parse(localStorage.getItem(key) || '[]');
+    if (key === 'cart') {
+      const exists = stored.some(game => game.id === id);
+      if (!exists) {
+        stored.push(item);
+        localStorage.setItem(key, JSON.stringify(stored));
+        showToast("Added to cart!");
+      } else {
+        showToast("This game is already in your cart.");
+      }
+    }
+
+    if (key === 'wishlist') {
+      if (!stored.includes(id)) {
+        stored.push(id);
+        localStorage.setItem(key, JSON.stringify(stored));
+        showToast("Added to wishlist!");
+      } else {
+        showToast("This game is already in your wishlist.");
+      }
     }
   });
 }
-
-// 4) Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
-  loadCatalog();      // <--  JSON section
-  loadDeals();        // <-- first page of API deals
-  initInfiniteScroll();
+  loadFreeToPlayGames();
   initButtons();
 });

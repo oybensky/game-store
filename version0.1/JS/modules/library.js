@@ -64,10 +64,12 @@ async function loadDeals() {
   try {
     const res = await fetch(
       `https://www.cheapshark.com/api/1.0/deals?pageNumber=${pageNumber}&pageSize=20`
+      
+      
     );
     if (!res.ok) throw new Error(res.statusText);
     const deals = await res.json();
-
+    console.log("Fetching items");
     deals.forEach(d => {
       const card = document.createElement('div');
       card.className = 'game-card';
