@@ -49,10 +49,8 @@ async function loadCatalog() {
       catalogContainer.appendChild(section);
     });
   } catch (err) {
-    console.error('Error loading catalog:', err);
-    const errMsg = document.createElement('p');
-    errMsg.textContent = ` Couldn’t load catalog: ${err.message}`;
-    catalogContainer.appendChild(errMsg);
+    console.error('Error loading catalog:', err.status);
+    
   }
 }
 
@@ -82,6 +80,7 @@ async function loadDeals() {
         <h3>${d.title}</h3>
         <p>Price: $${parseFloat(d.normalPrice).toFixed(2)}</p>
         <p>Sale: $${parseFloat(d.salePrice).toFixed(2)}</p>
+        <p>Critic Score: ${parseFloat(d.metacriticScore)}%</p>
        
         <button class="btn btn-success add-to-cart" 
         data-id="${d.gameID}" 
@@ -95,25 +94,15 @@ async function loadDeals() {
         </button>
       `;
 
-      card.querySelector('.add-to-cart').addEventListener('click', e => {
-        e.stopPropagation();
-        const btn = e.currentTarget;
-        const game = {
-          id: btn.dataset.id,
-          normalPrice: parseFloat(btn.dataset.price),
-          title: btn.dataset.title,
-          thumb: btn.dataset.thumb
-        };
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        if (!cart.find(item => item.id === game.id)) {
-          cart.push(game);
-          localStorage.setItem('cart', JSON.stringify(cart));
-          console.log('Cart now:', cart);
-          alert(' Added to cart!');
-        } else {
-          alert('Already in your cart.');
+      // does not work yet
+      card.onclick = (e) => {
+        // only navigate if not clicking a button
+        if (!e.target.matches('button')) {
+          sessionStorage.setItem('selectedProduct', p.gameID);
+          window.location.href = 'game-details.html';
         }
-      });
+      };
+
 
       apiContainer.appendChild(card);
     });
@@ -126,6 +115,8 @@ async function loadDeals() {
   }
 }
 
+
+
 //  hooking up scroll & buttons
 function initInfiniteScroll(){
   window.addEventListener('scroll', () => {
@@ -133,6 +124,7 @@ function initInfiniteScroll(){
     if (scrollTop + clientHeight >= scrollHeight - 100) loadDeals();
   });
 }
+
 
 function initButtons(){
   document.body.addEventListener('click', e => {
@@ -161,6 +153,9 @@ function initButtons(){
   });
 }
 
+// ass the user clicks on the add to cart button the evenlistener
+// will get the target game and will create an object of that game for later in the cart js
+
 document.body.addEventListener('click', e => {
   if (e.target.matches('.add-to-cart')) {
     const btn = e.target;
@@ -186,75 +181,6 @@ document.body.addEventListener('click', e => {
   }
 });
 
-
-async function initCart() {
-  // load cart from localStorage default to empty array if not present
-  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-  // normalize and filter cart items
-  cart = cart
-    .map(item => {
-      // if item has gameID, convert it to the expected structure
-      if (item.gameID) {
-        return {
-          id: item.gameID,
-          normalPrice: item.normalPrice,
-          title: item.title || 'Unknown Title', // fallback if title is missing
-          thumb: item.thumb || '' // allback if thumb is missing
-        };
-      }
-      return item;
-    })
-    .filter(item => 
-      item && 
-      typeof item === 'object' && 
-      'id' in item && 
-      'normalPrice' in item
-    );
-
-  console.log('Loaded cart:', cart);
-
-  const container = document.getElementById('review-items');
-  if (!cart.length) {
-    container.innerHTML = '<p class="text-muted">Your cart is empty.</p>';
-    updateSummary([]);
-    return;
-  }
-
-  container.innerHTML = '';
-  for (const item of cart) {
-    const card = document.createElement('div');
-    card.className = 'card mb-3 shadow-sm';
-    card.innerHTML = `
-      <div class="row g-0 align-items-center">
-        <div class="col-md-4">
-          <img src="${item.thumb}" class="img-fluid rounded-start" alt="${item.title}" style="max-height: 150px; object-fit: cover;">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title mb-2">${item.title}</h5>
-            <p class="card-text mb-2">Price: ${formatPrice(item.normalPrice)}</p>
-            <button class="btn btn-outline-danger btn-sm remove-btn" data-id="${item.id}">
-              Remove
-            </button>
-          </div>
-        </div>
-      </div>`;
-    container.appendChild(card);
-  }
-
-  updateSummary(cart);
-
-  //  remove button functionality
-  document.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.id;
-      const newCart = cart.filter(it => it.id !== id);
-      localStorage.setItem('cart', JSON.stringify(newCart));
-      initCart(); // Re-render
-    });
-  });
-}
 
 function formatPrice(n) {
   return `$${n.toFixed(2)}`;
