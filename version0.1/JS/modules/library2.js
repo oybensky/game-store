@@ -58,6 +58,7 @@ async function loadFreeToPlayGames() {
     isFTGFetching = false;
   }
 }
+
 function initButtons() {
   document.body.addEventListener('click', e => {
     e.stopPropagation();
