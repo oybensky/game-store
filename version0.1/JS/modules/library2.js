@@ -42,6 +42,12 @@ async function loadFreeToPlayGames() {
 </button>
       `;
 
+      card.onclick = (e) =>{
+        if(!e.target.matches('button')){
+          window.location.href = 'game-details.html';
+        }
+      };
+
       freetogameContainer.appendChild(card);
     });
 

@@ -186,11 +186,6 @@ function formatPrice(n) {
   return `$${n.toFixed(2)}`;
 }
 
-function updateSummary(cart) {
-  const subtotal = cart.reduce((sum, item) => sum + item.normalPrice, 0);
-  // updating DOM with subtotal, tax, total, etc.
-  console.log('Subtotal:', subtotal);
-}
 
 // bootstrap
 document.addEventListener('DOMContentLoaded', () => {
@@ -200,8 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initButtons();
 });
 
+
+
 const searchInput = document.querySelector("input[type='search']");
-const searchForm = document.querySelector("form[role='search']");
+// const searchForm = document.querySelector("form[role='search']");
 
 // store all game cards for searching
 let allGameCards = [];
@@ -210,14 +207,14 @@ let allGameCards = [];
 function performSearch(searchTerm) {
   searchTerm = searchTerm.toLowerCase().trim();
   
-  // geting all game cards currently in the DOM
+  // geting all game cards currently in the DOM as node list
   const catalogCards = document.querySelectorAll('#catalogContainer .game-card');
   const apiCards = document.querySelectorAll('#apiDealsContainer .game-card');
   
   // combine both sets of cards
   allGameCards = [...catalogCards, ...apiCards];
   
-  // If search is empty, show all cards
+  // If search is empty shows all cards
   if (searchTerm === '') {
     allGameCards.forEach(card => {
       card.style.display = 'flex';
@@ -236,17 +233,17 @@ function performSearch(searchTerm) {
   });
 }
 
-// updating the existing event listener or create a new one
+
 searchInput.addEventListener('input', (e) => {
   const value = e.target.value;
   performSearch(value);
 });
 
-// handling form submission to prevent page reload
-searchForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  performSearch(searchInput.value);
-});
+// // handling form submission to prevent page reload
+// searchForm.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   performSearch(searchInput.value);
+// });
 
 // modifying the original document DOMContentLoaded event to add search after everything loads
 const originalDOMContentLoaded = document.addEventListener;
@@ -264,3 +261,69 @@ document.addEventListener = function(event, callback) {
     originalDOMContentLoaded.call(document, event, callback);
   }
 };
+
+
+
+//random game button
+
+async function showRandomGame() {
+  const apiContainer = document.getElementById('apiDealsContainer');
+  apiContainer.innerHTML = ''; 
+
+  try {
+    const res = await fetch(`https://www.cheapshark.com/api/1.0/deals?pageNumber=0&pageSize=50`);
+    if (!res.ok) throw new Error(res.statusText);
+    const deals = await res.json();
+
+    if (deals.length === 0) {
+      console.log('No deals found');
+      apiContainer.innerHTML = '<p>No deals available at the moment.</p>';
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * deals.length);
+    const randomDeal = deals[randomIndex];
+
+    const heading = document.createElement('h3');
+    heading.textContent = "Here's a random game for you!";
+    heading.className = 'text-center mb-3';
+    apiContainer.appendChild(heading);
+
+    const card = document.createElement('div');
+    card.className = 'game-card random-game-card';
+    card.innerHTML = `
+      <div class="game-image">
+        <img src="${randomDeal.thumb}" alt="${randomDeal.internalName}" />
+      </div>
+      <h3>${randomDeal.title}</h3>
+      <p>Price: $${parseFloat(randomDeal.normalPrice).toFixed(2)}</p>
+      <p>Sale: $${parseFloat(randomDeal.salePrice).toFixed(2)}</p>
+      <p>Critic Score: ${parseFloat(randomDeal.metacriticScore)}%</p>
+      <button class="btn btn-success add-to-cart" 
+        data-id="${randomDeal.gameID}" 
+        data-price="${parseFloat(randomDeal.normalPrice).toFixed(2)}" 
+        data-title="${randomDeal.title}" 
+        data-thumb="${randomDeal.thumb}">
+        Add to Cart
+      </button>
+      <button class="btn btn-outline-primary add-to-wishlist" data-deal="${randomDeal.dealID}">
+        Wishlist
+      </button>
+      
+    `;
+
+    card.onclick = (e) => {
+      if (!e.target.matches('button')) {
+        sessionStorage.setItem('selectedProduct', randomDeal.gameID);
+        window.location.href = 'game-details.html';
+      }
+    };
+
+    apiContainer.appendChild(card);
+  } catch (err) {
+    console.error('Error fetching random game:', err);
+    apiContainer.innerHTML = '<p>Error loading random game. Please try again.</p>';
+  }
+}
+
+document.getElementById('random-game').addEventListener('click',showRandomGame);

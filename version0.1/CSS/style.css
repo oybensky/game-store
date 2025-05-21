@@ -69,17 +69,8 @@ body {
     height: 100%;
 }
 
-/* General image style - MODIFIED to not apply to game card images */
-/*img:not(.game-card img){
-    display: flex;
-    border: rgb(0, 0, 0) 5px solid;
-    width: 650px;
-    height: auto;
-    margin-left: 40px;
-    align-items: center;
-    justify-content: center;
-} 
-    */
+
+
 .image {
     padding: 20px;
     display: flex;
@@ -282,4 +273,11 @@ gmp-map{
   #wishlistContainer {
     max-width: 900px;
     margin: 0 auto;
+  }
+
+
+  .random-game-card {
+    border: 10px solid rgb(255, 255, 255);
+    background-color: #000000; 
+    padding: 10px;
   }
