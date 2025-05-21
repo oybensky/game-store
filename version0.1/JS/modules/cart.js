@@ -98,4 +98,9 @@ localStorage.removeItem('cart');
 initCart();
   })
   
+  document.getElementById('checkout-btn').addEventListener('click',()=>{
+alert(':) Order has been Confirmed');
+
+  })
+
   document.addEventListener('DOMContentLoaded', initCart);

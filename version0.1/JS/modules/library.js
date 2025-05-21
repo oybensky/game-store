@@ -96,9 +96,9 @@ async function loadDeals() {
 
       // does not work yet
       card.onclick = (e) => {
-        // only navigate if not clicking a button
         if (!e.target.matches('button')) {
-          sessionStorage.setItem('selectedProduct', p.gameID);
+          sessionStorage.setItem('selectedProduct', d.gameID);
+          sessionStorage.setItem('selectedThumbnail', d.thumb);
           window.location.href = 'game-details.html';
         }
       };
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 const searchInput = document.querySelector("input[type='search']");
-// const searchForm = document.querySelector("form[role='search']");
+
 
 // store all game cards for searching
 let allGameCards = [];
@@ -239,11 +239,7 @@ searchInput.addEventListener('input', (e) => {
   performSearch(value);
 });
 
-// // handling form submission to prevent page reload
-// searchForm.addEventListener('submit', (e) => {
-//   e.preventDefault();
-//   performSearch(searchInput.value);
-// });
+
 
 // modifying the original document DOMContentLoaded event to add search after everything loads
 const originalDOMContentLoaded = document.addEventListener;
