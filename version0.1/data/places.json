@@ -1,4 +1,32 @@
 {
+   "categories": [
+    {
+      "categoryId": 1,
+      "categoryName": "Game Stores",
+      "description": "Places to buy and sell video games, consoles, and accessories"
+    },
+    {
+      "categoryId": 2,
+      "categoryName": "PC Stores",
+      "description": "Places to purchase the best PC games and hardware"
+    },
+    {
+      "categoryId": 3,
+      "categoryName": "Strategy Games",
+      "description": "Games that emphasize tactical thinking and careful planning"
+    },
+    {
+      "categoryId": 4,
+      "categoryName": "Simulation Games",
+      "description": "Games designed to closely simulate real-world activities or systems"
+    },
+    {
+      "categoryId": 5,
+      "categoryName": "Indie Games",
+      "description": "Games created by small independent studios with innovative concepts"
+    }
+  ],
+
   "places": [
     {
       "id": 1,
@@ -8,7 +36,8 @@
         "longitude": -73.56926609894926
       },
       "description": "A place to get the latest tech gadgets and electronics.",
-            "image": "images/Opko.jpg"
+            "image": "images/Opko.jpg",
+            "categoryId": 1
     },
     {
       "id": 2,
@@ -18,7 +47,8 @@
         "longitude": -73.6137501918307
       },
       "description": "A place to get the latest tech gadgets and electronics.",
-       "image": "images/BestBuy.jpg"
+       "image": "images/BestBuy.jpg",
+       "categoryId": 1
      
     },
      {
@@ -29,9 +59,86 @@
         "longitude": -73.4574609006257
       },
       "description": "If you want a place to buy the best games. Here's your stop",
-      "image": "images/Gamestop.jpg"
-
-      
+      "image": "images/Gamestop.jpg",
+      "categoryId": 1
+    },
+    {
+      "id": 4,
+      "name": "Walmart",
+      "location": {
+        "latitude": 45.60564958166496,
+        "longitude": -73.61299630341009
+      },
+      "description": "A general and very reliable shopping center for games and many other things.",
+       "image": "images/walmart_media.jpg",
+       "categoryId": 1
+    },
+    {
+      "id": 5,
+      "name": "Amazon",
+      "location": {
+        "latitude": 45.454451736861614,
+        "longitude": -73.6137501918307
+      },
+      "description": "Shopping online for great .",
+       "image": "images/Amazon.jpg",
+       "categoryId": 1
+    },
+    {
+      "id": 6,
+      "name": "Ordinateurs Canada / Canada Computers",
+      "location": {
+        "latitude": 45.507058049419776,
+        "longitude": -73.56825549805899
+      },
+      "description": "A digital distribution platform for PC games.",
+       "image": "images/computerCanada.jpg",
+       "categoryId": 2
+    },
+    {
+      "id": 7,
+      "name": "CIPC",
+      "location": {
+        "latitude": 45.54871925232792,
+        "longitude": -73.58533431396881
+      },
+      "description": "Very known for their PC games and hardware.",
+       "image": "images/CIPC.jpg",
+       "categoryId": 2
+    },
+    {
+      "id": 8,
+      "name": "Canada Computers",
+      "location": { 
+        "latitude": 45.46565435584884,
+        "longitude": -73.46802524312085
+      },
+      "description": "A place to get the latest tech gadgets and electronics.",
+       "image": "images/PCCanada.jpg",
+       "categoryId": 2
+    },
+    {
+      "id": 9,
+      "name": "Addison Électronique Repentigny",
+      "location": {
+        "latitude": 45.74909139463436,
+        "longitude": -73.45426945480013
+      },
+      "description": "A place to get the latest tech gadgets and electronics.",
+       "image": "images/addison.jpg",
+       "categoryId": 2
+    },
+    {
+      "id": 10,
+      "name": "PC Suprême Inc",
+      "location": {
+        "latitude": 45.669842608217444, 
+        "longitude": -73.51602982096317
+      },
+      "description": "A place to get the latest tech gadgets and electronics.",
+       "image": "images/PCSupreme.jpg",
+       "categoryId": 2
     }
   ]
+ 
 }
