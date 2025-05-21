@@ -1,5 +1,4 @@
 const API_GAME_URL = 'https://www.cheapshark.com/api/1.0/games?id=';
-const API_GAME_URL2 = 'https://www.freetogame.com/api/games?start=';
 
 
 function formatPrice(n) {
@@ -38,6 +37,7 @@ function formatPrice(n) {
             thumb: item.thumb || ''
           };
         }
+        
         return item;
       })
       .filter(item => 

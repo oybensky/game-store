@@ -1,7 +1,7 @@
 const freetogameContainer = document.getElementById('freetogameContainer');
 let ftgPageNumber = 0;
 let isFTGFetching = false;
-const proxy = "https://cors-anywhere.herokuapp.com/";
+const proxy = "https://cors-anywhere.herokuapp.com/"; //To run, you need to get the automatic permission
 const apiUrl = `${proxy}https://www.freetogame.com/api/games?start=${ftgPageNumber * 20}&limit=20`;
 
 
@@ -29,13 +29,17 @@ async function loadFreeToPlayGames() {
         <p>Platform: ${game.platform}</p>
         <a href="${game.game_url}" target="_blank" class="btn btn-primary">Play Now</a>
         <button class="btn btn-success add-to-cart" 
-                data-id="${game.id}" 
+                data-id="ftg-${game.id}" 
                 data-title="${game.title}" 
                 data-thumb="${game.thumbnail}" 
                 data-price="0.00">Add to Cart</button>
-        <button class="btn btn-outline-primary add-to-wishlist" data-id="${game.id}">
-          Wishlist
-        </button>
+        <button class="btn btn-primary add-to-wishlist"
+        data-id="ftg-${game.id}"
+        data-title="${game.title}"
+        data-thumb="${game.thumbnail}"
+        data-price="0.00">
+  Wishlist
+</button>
       `;
 
       freetogameContainer.appendChild(card);
@@ -63,10 +67,10 @@ function initButtons() {
         id,
         title: e.target.dataset.title,
         thumb: e.target.dataset.thumb,
-        normalprice: parseFloat(e.target.dataset.price)
+        normalPrice: parseFloat(e.target.dataset.price)
       };
 
-    }
+    }     
     function showToast(message) {
       const toastEl = document.getElementById('cartToast');
       const toastBody = toastEl.querySelector('.toast-body');
@@ -94,16 +98,23 @@ function initButtons() {
         showToast("This game is already in your cart.");
       }
     }
+if (key === 'wishlist') {
+  const exists = stored.some(game => game.id === id);
+  if (!exists) {
+    const wishlistItem = {
+      id,
+      title: e.target.dataset.title || `Game #${id}`,
+      thumb: e.target.dataset.thumb || 'images/placeholder.jpg',
+      price: e.target.dataset.price || '0.00'
+    };
+    stored.push(wishlistItem);
+    localStorage.setItem(key, JSON.stringify(stored));
+    showToast("Added to wishlist!");
+  } else {
+    showToast("This game is already in your wishlist.");
+  }
+}
 
-    if (key === 'wishlist') {
-      if (!stored.includes(id)) {
-        stored.push(id);
-        localStorage.setItem(key, JSON.stringify(stored));
-        showToast("Added to wishlist!");
-      } else {
-        showToast("This game is already in your wishlist.");
-      }
-    }
   });
 }
 document.addEventListener('DOMContentLoaded', () => {
