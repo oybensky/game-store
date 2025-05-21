@@ -1,10 +1,12 @@
 const API_GAME_URL = 'https://www.cheapshark.com/api/1.0/games?id=';
+const API_GAME_URL2 = 'https://www.freetogame.com/api/games?start=';
 
 
 function formatPrice(n) {
     return `$${n.toFixed(2)}`;
   }
   
+  // calculating the total price of the games
   function updateSummary(cart) {
     const subtotal = cart.reduce((sum, it) => sum + it.normalPrice, 0);
     const tax = subtotal * 0.15;
@@ -22,13 +24,13 @@ function formatPrice(n) {
   }
   
   async function initCart() {
-    // Load cart from localStorage, default to empty array if not present
+    // loading the cart from localStorage 
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
   
-    // Normalize and filter cart items
+    // normalizing and filter cart items
     cart = cart
       .map(item => {
-        // If item has gameID, convert to standard structure
+        // if item has gameID convert to standard structure
         if (item.gameID) {
           return {
             id: item.gameID,
@@ -37,7 +39,6 @@ function formatPrice(n) {
             thumb: item.thumb || ''
           };
         }
-        
         return item;
       })
       .filter(item => 
@@ -80,13 +81,15 @@ function formatPrice(n) {
   
     updateSummary(cart);
   
-    // Add remove button functionality
+    //  remove button functionality
     document.querySelectorAll('.remove-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.id;
+        // create new array excluding the iteam id 
+        // saves the update cart to localstorage
         const newCart = cart.filter(it => it.id !== id);
         localStorage.setItem('cart', JSON.stringify(newCart));
-        initCart(); // Re-render
+        initCart(); 
       });
     });
   }
