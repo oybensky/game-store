@@ -153,7 +153,7 @@ function initButtons(){
   });
 }
 
-// ass the user clicks on the add to cart button the evenlistener
+// ask the user clicks on the add to cart button the evenlistener
 // will get the target game and will create an object of that game for later in the cart js
 
 document.body.addEventListener('click', e => {
